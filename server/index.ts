@@ -1,14 +1,18 @@
 import next from "next";
-import express from "express";
+import express, { Express, Request, Response } from "express";
+import { IncomingMessage, ServerResponse } from "http";
+import router from "./routes";
 
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  const server = express();
+  const server: Express = express();
 
-  server.all("*", (req, res) => {
+  server.use(router);
+
+  server.all("*", (req: IncomingMessage, res: ServerResponse) => {
     return handle(req, res);
   });
 

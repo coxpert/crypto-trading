@@ -1,0 +1,19 @@
+name: CI
+on:
+  push:
+  pull_request:
+    types: [opened, reopened]
+    branches: [main, master, development]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install node modules
+        run: yarn
+      - name: Eslint
+        run: yarn lint
+      - name: Prettier
+        run: yarn prettier
+      - name: Typescript
+        run: yarn typescript
