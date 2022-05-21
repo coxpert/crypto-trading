@@ -1,4 +1,4 @@
-<h1 align="center">Next + Material UI + Express</h1>
+<h1 align="center">Dexpools Trading</h1>
 <p align="center">
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <a href="LICENSE">
