@@ -139,7 +139,7 @@ export const getDesignTokens = (mode: "light" | "dark") => {
         disabled: getColor("#D2D4DC", "#000000"),
       },
       background: {
-        header: getColor("#FFFFFF", "#000000"),
+        header: getColor("#FFFFFF00", "#00000000"),
         default: getColor("#F1F1F3", "#000000"),
         paper: getColor("#FFFFFF", "#000000"),
         surface: getColor("#F7F7F9", "#000000"),
@@ -500,7 +500,6 @@ export function getThemedComponents(t: Theme) {
             display: "flex",
             flexDirection: "column",
             flex: 1,
-            paddingBottom: "39px",
             flexGrow: "unset",
             [theme.breakpoints.up("xs")]: {
               paddingLeft: "8px",

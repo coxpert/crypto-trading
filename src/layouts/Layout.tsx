@@ -11,6 +11,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
         component="main"
         sx={{ display: "flex", flexDirection: "column", flex: 1 }}
       >
+        sdfgsdfg
         {children}
       </Box>
     </>
