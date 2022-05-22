@@ -140,7 +140,7 @@ export const getDesignTokens = (mode: "light" | "dark") => {
       },
       background: {
         header: getColor("#FFFFFF00", "#00000000"),
-        default: getColor("#F1F1F3", "#000000"),
+        default: getColor("#F1F1F3", "#0e0f1b"),
         paper: getColor("#FFFFFF", "#000000"),
         surface: getColor("#F7F7F9", "#000000"),
         tab: getColor("#F8F8F8", "#000000"),
@@ -754,18 +754,7 @@ export function getThemedComponents(t: Theme) {
               zIndex: 100,
               height: "100%",
               display: "flex",
-              justifyContent: "center",
-
-              ".MuiTypography-subheader1": {
-                background: theme.palette.gradients.default,
-                backgroundClip: "text",
-                textFillColor: "transparent",
-              },
-              ".MuiTypography-secondary14": {
-                background: theme.palette.gradients.default,
-                backgroundClip: "text",
-                textFillColor: "transparent",
-              },
+              justifyContent: "center"
             },
           },
         },

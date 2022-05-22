@@ -8,14 +8,15 @@ import { getDesignTokens, getThemedComponents } from "../utils/theme";
 
 export const ColorModeContext = createContext({
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  toggleColorMode: () => {},
+  toggleColorMode: () => { },
 });
 
 type Mode = "light" | "dark";
 
+const initialMode = process.env.NEXT_PUBLIC_APP_MODE as Mode
+
 export function AppGlobalStyles({ children }: { children: ReactNode }) {
-  const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [mode, setMode] = useState<Mode>(prefersDarkMode ? "dark" : "light");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
