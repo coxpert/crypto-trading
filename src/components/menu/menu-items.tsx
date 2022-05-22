@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
-import GitHubIcon from "@mui/icons-material/GitHub";
+import { BookOpenIcon, QuestionMarkCircleIcon } from "@heroicons/react/outline";
+import GithubIcon from '/public/icons/github.svg';
 import DiscordIcon from "/public/icons/discord.svg";
 
 interface Menu {
@@ -14,7 +13,7 @@ interface Menu {
 export const navigation: Menu[] = [
   {
     link: "/",
-    title: "HOME",
+    title: "Home",
   },
   {
     link: "/trade",
@@ -34,21 +33,28 @@ const moreMenuItems: MoreMenuItem[] = [
   {
     link: "https://docs.aave.com/faq/",
     title: "FAQ",
-    icon: HelpOutlineOutlinedIcon,
+    icon: <QuestionMarkCircleIcon />,
   },
   {
     link: "https://docs.aave.com/portal/",
     title: "Developers",
-    icon: MenuBookOutlinedIcon,
+    icon: <BookOpenIcon />,
   },
   {
     link: "https://discord.gg/7kHKnkDEUf",
     title: "Discord",
-    icon: GitHubIcon,
+    icon: <GithubIcon />,
   },
   {
     link: "https://github.com/aave/interface",
     title: "Github",
-    icon: DiscordIcon,
+    icon: <DiscordIcon />,
   },
+];
+
+export const moreMenuExtraItems: MoreMenuItem[] = [];
+
+export const moreMenus: MoreMenuItem[] = [
+  ...moreMenuItems,
+  ...moreMenuExtraItems,
 ];

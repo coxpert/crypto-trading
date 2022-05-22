@@ -1,14 +1,15 @@
 import { DotsHorizontalIcon } from '@heroicons/react/solid';
-import { Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
+import { Box, Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import React from 'react';
+import Link from 'next/link'
+import { useState } from 'react';
 
-import { moreNavigation } from '../ui-config/menu-items';
+import { moreMenus } from './menu-items';
 
 export function MoreMenu() {
 
-  const [anchorEl, setAnchorEl] = React.useState<Element | null>(null);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setAnchorEl(event.currentTarget);
@@ -35,7 +36,7 @@ export function MoreMenu() {
           },
         }}
       >
-        <Trans>More</Trans>
+        More
         <SvgIcon color="inherit" sx={{ ml: 1 }}>
           <DotsHorizontalIcon />
         </SvgIcon>
@@ -51,12 +52,18 @@ export function MoreMenu() {
         onClose={handleClose}
         keepMounted={true}
       >
-        {moreNavigation.map((item, index) => (
-          <MenuItem component={Link} href={item.link} key={index}>
-            <ListItemIcon>
-              <SvgIcon sx={{ fontSize: '20px' }}>{item.icon}</SvgIcon>
-            </ListItemIcon>
-            <ListItemText>{i18n._(item.title)}</ListItemText>
+        {moreMenus.map((item, index) => (
+          <MenuItem key={index}>
+            <Link href={item.link}>
+              <a>
+                <Box>
+                  <ListItemIcon>
+                    <SvgIcon sx={{ fontSize: '20px' }}>{item.icon}</SvgIcon>
+                  </ListItemIcon>
+                  <ListItemText>{item.title}</ListItemText>
+                </Box>
+              </a>
+            </Link>
           </MenuItem>
         ))}
       </Menu>

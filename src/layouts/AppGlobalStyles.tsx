@@ -34,8 +34,6 @@ export function AppGlobalStyles({ children }: { children: ReactNode }) {
     const initialMode = localStorage?.getItem("colorMode") as Mode;
     if (initialMode) {
       setMode(initialMode);
-    } else if (prefersDarkMode) {
-      setMode("dark");
     }
   }, []);
 

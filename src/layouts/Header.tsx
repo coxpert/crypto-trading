@@ -4,10 +4,10 @@ import {
   useScrollTrigger,
 } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Container } from "@mui/system";
 import Image from 'next/image'
+import { NavItems } from "@/components/menu/NavItems";
 
 interface Props {
   children: React.ReactElement;
@@ -47,6 +47,7 @@ export const Header = () => {
               </Box>
             </a>
           </Link>
+          <NavItems />
         </Box>
       </Container>
     </HideOnScroll>

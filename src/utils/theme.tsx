@@ -132,11 +132,11 @@ export const getDesignTokens = (mode: "light" | "dark") => {
         dark: getColor("#318435", "#000000"),
       },
       text: {
-        default: getColor("#5E6D7C", "#000000"),
-        active: getColor("#2F2F2F", "#000000"),
-        primary: getColor("#303549", "#000000"),
-        secondary: getColor("#9BA4AE", "#000000"),
-        disabled: getColor("#D2D4DC", "#000000"),
+        default: getColor("#5E6D7C", "#FFFFFF"),
+        active: getColor("#2F2F2F", "#FFFFFF"),
+        primary: getColor("#303549", "#FFFFFF"),
+        secondary: getColor("#9BA4AE", "#FFFFFF"),
+        disabled: getColor("#D2D4DC", "#FFFFFF"),
       },
       background: {
         header: getColor("#FFFFFF00", "#00000000"),

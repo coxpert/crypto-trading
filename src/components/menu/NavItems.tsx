@@ -39,39 +39,40 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
               component={Link}
               href={item.link}
               variant="h2"
-              color="#F1F1F3"
               sx={{ width: '100%', p: 4 }}
               onClick={() => (setOpen ? setOpen(false) : undefined)}
             >
               {item.title}
             </Typography>
           ) : (
-            <Button
-              component={Link}
-              href={item.link}
-              sx={(theme) => ({
-                color: '#F1F1F3',
-                p: '6px 8px',
-                position: 'relative',
-                '.active&:after, &:hover&:after': {
-                  transform: 'scaleX(1)',
-                  transformOrigin: 'bottom left',
-                },
-                '&:after': {
-                  content: "''",
-                  position: 'absolute',
-                  width: '100%',
-                  transform: 'scaleX(0)',
-                  height: '2px',
-                  bottom: '-6px',
-                  left: '0',
-                  transformOrigin: 'bottom right',
-                  transition: 'transform 0.25s ease-out',
-                },
-              })}
-            >
-              {item.title}
-            </Button>
+            <Link href={item.link}>
+              <a>
+                <Button
+                  sx={() => ({
+                    color: '#F1F1F3',
+                    p: '6px 8px',
+                    position: 'relative',
+                    '.active&:after, &:hover&:after': {
+                      transform: 'scaleX(1)',
+                      transformOrigin: 'bottom left',
+                    },
+                    '&:after': {
+                      content: "''",
+                      position: 'absolute',
+                      width: '100%',
+                      transform: 'scaleX(0)',
+                      height: '2px',
+                      bottom: '-6px',
+                      left: '0',
+                      transformOrigin: 'bottom right',
+                      transition: 'transform 0.25s ease-out',
+                    },
+                  })}
+                >
+                  {item.title}
+                </Button>
+              </a>
+            </Link>
           )}
         </ListItem>
       ))}
