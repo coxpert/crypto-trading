@@ -9,6 +9,11 @@ import createEmotionCache from '@/createEmotionCache'
 import { AppGlobalStyles } from '@/layouts/AppGlobalStyles'
 import { config } from '@/config'
 import { Layout } from '@/layouts/Layout'
+import { ModalContextProvider } from '@/components/modal'
+import { SettingModal } from '@/components/modal/SettingModal'
+import { Web3ReactProvider } from '@web3-react/core';
+import { providers } from 'ethers';
+import { Web3ContextProvider } from '@/layouts/Web3Provider'
 
 type NextPageWithLayout = NextPage & {
   layout?: React.FunctionComponent
@@ -17,6 +22,11 @@ type NextPageWithLayout = NextPage & {
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
+const getWeb3Library = (provider: any): providers.Web3Provider => {
+  const library = new providers.Web3Provider(provider);
+  library.pollingInterval = 12000;
+  return library;
+}
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache
   Component: NextPageWithLayout
@@ -33,11 +43,18 @@ function MyApp(props: MyAppProps) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
       <AppGlobalStyles>
-        <AuthProvider>
-          <AppLayout>
-            <Component {...pageProps} />
-          </AppLayout>
-        </AuthProvider>
+        <Web3ReactProvider getLibrary={getWeb3Library}>
+          <Web3ContextProvider>
+            <AuthProvider>
+              <ModalContextProvider>
+                <AppLayout>
+                  <Component {...pageProps} />
+                </AppLayout>
+                <SettingModal />
+              </ModalContextProvider>
+            </AuthProvider>
+          </Web3ContextProvider>
+        </Web3ReactProvider>
       </AppGlobalStyles>
     </CacheProvider>
   )

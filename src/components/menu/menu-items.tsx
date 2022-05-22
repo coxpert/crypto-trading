@@ -8,6 +8,8 @@ interface Menu {
   title: string
   isVisible?: boolean
   dataCy?: string
+  shallow?: boolean
+  target?: string
 }
 
 export const navigation: Menu[] = [
@@ -43,12 +45,14 @@ const moreMenuItems: MoreMenuItem[] = [
   {
     link: 'https://discord.com/invite/TnmSNt5ZPP',
     title: 'Discord',
-    icon: <GithubIcon />
+    target: '_blank',
+    icon: <DiscordIcon />
   },
   {
     link: 'https://github.com/Dexpools',
     title: 'Github',
-    icon: <DiscordIcon />
+    target: '_blank',
+    icon: <GithubIcon />
   }
 ]
 

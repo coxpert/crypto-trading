@@ -24,6 +24,10 @@ declare module '@mui/material/styles/createPalette' {
     header: string
   }
 
+  interface TypeText {
+    default: string
+  }
+
   interface Palette {
     gradients: {
       default: string
@@ -107,7 +111,7 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
         dark: getColor('#0a33bb', '#000000')
       },
       secondary: {
-        main: getColor('#F0F3FB', '#000000'),
+        main: getColor('#F0F3FB', '#FFFFFF'),
         light: getColor('#0C3EE3', '#000000'),
         dark: getColor('#F0F3FB', '#000000')
       },
@@ -133,8 +137,9 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
       },
       text: {
         default: getColor('#5E6D7C', '#FFFFFF'),
-        active: getColor('#2F2F2F', '#FFFFFF'),
-        primary: getColor('#303549', '#FFFFFF'),
+        active: getColor('#2F2F2F', '#2F2F2F'),
+        link: getColor('#00ff00', '#00ff00'),
+        primary: getColor('#303549', 'rgba(0,250,255,0.71)'),
         secondary: getColor('#9BA4AE', '#FFFFFF'),
         disabled: getColor('#D2D4DC', '#FFFFFF')
       },
@@ -335,26 +340,28 @@ export function getThemedComponents(t: Theme) {
           {
             props: { variant: 'secondary' },
             style: {
-              color: theme.palette.primary.main,
+              color: theme.palette.text.secondary,
               border: '1px solid',
               borderColor: theme.palette.secondary.main,
-              backgroundColor: theme.palette.secondary.main,
+              backgroundColor: 'transparent',
               fontWeight: 700,
               '&:hover, &.Mui-focusVisible': {
                 backgroundColor: theme.palette.secondary.dark,
                 boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.23)'
               },
-              padding: '10px 20px'
+              padding: '8px 20px'
             }
           },
           {
             props: { variant: 'surface' },
             style: {
-              backgroundColor: theme.palette.common.white,
+              color: theme.palette.text.default,
+              border: 'solid 1px',
+              backgroundColor: 'transparent',
               '&:hover, &.Mui-focusVisible': {
                 backgroundColor: theme.palette.background.header
               },
-              padding: '6px 20px'
+              padding: '8px 20px!important'
             }
           },
           {
@@ -396,6 +403,11 @@ export function getThemedComponents(t: Theme) {
             helperText: 'span',
             tooltip: 'span'
           }
+        },
+        styleOverrides: {
+          root: {
+            color: theme.palette.text.default
+          }
         }
       },
       MuiLink: {
@@ -411,6 +423,13 @@ export function getThemedComponents(t: Theme) {
             style: {
               minWidth: 240,
               marginTop: '4px'
+            }
+          }
+        },
+        styleOverrides: {
+          root: {
+            '.MuiPaper-root': {
+              backgroundColor: theme.palette.background.default
             }
           }
         }
@@ -707,6 +726,18 @@ export function getThemedComponents(t: Theme) {
           }
         ]
       },
+      MuiFormControl: {
+        styleOverrides: {
+          root: {
+            '.MuiInputLabel-root.Mui-focused': {
+              color: theme.palette.text.default
+            },
+            '.MuiOutlinedInput-root': {
+              color: theme.palette.text.default
+            }
+          }
+        }
+      },
       MuiCssBaseline: {
         styleOverrides: {
           body: {
@@ -725,7 +756,7 @@ export function getThemedComponents(t: Theme) {
       MuiSvgIcon: {
         styleOverrides: {
           root: {
-            color: theme.palette.text.primary
+            color: theme.palette.text.default
           }
         }
       },

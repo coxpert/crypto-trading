@@ -3,13 +3,14 @@ import { Box, Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Link from 'next/link'
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import Router from 'next/router'
 import { moreMenus } from './menu-items'
 
 export function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<Element | null>(null)
   const open = Boolean(anchorEl)
+
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -18,6 +19,13 @@ export function MoreMenu() {
   const handleClose = () => {
     setAnchorEl(null)
   }
+
+  useEffect(() => {
+    Router.events.on('routeChangeStart', handleClose)
+    return () => {
+      Router.events.off('routeChangeStart', handleClose)
+    }
+  }, [])
 
   return (
     <>
@@ -33,7 +41,7 @@ export function MoreMenu() {
           minWidth: 'unset',
           p: '6px 8px',
           '&:hover': {
-            bgcolor: 'rgba(250, 251, 252, 0.08)'
+            backgroundColor: 'rgba(250, 251, 252, 0.08)'
           }
         }}
       >
@@ -54,18 +62,18 @@ export function MoreMenu() {
         keepMounted={true}
       >
         {moreMenus.map((item, index) => (
-          <MenuItem key={index}>
-            <Link href={item.link}>
-              <a>
+          <Link href={item.link} key={index} passHref >
+            <a target={item.target} rel="noopener noreferrer">
+              <MenuItem>
                 <Box display="flex">
                   <ListItemIcon>
                     <SvgIcon sx={{ fontSize: '20px' }}>{item.icon}</SvgIcon>
                   </ListItemIcon>
                   <ListItemText>{item.title}</ListItemText>
                 </Box>
-              </a>
-            </Link>
-          </MenuItem>
+              </MenuItem>
+            </a>
+          </Link>
         ))}
       </Menu>
     </>
