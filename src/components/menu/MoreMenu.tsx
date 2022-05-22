@@ -1,22 +1,23 @@
-import { DotsHorizontalIcon } from '@heroicons/react/solid';
-import { Box, Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import { DotsHorizontalIcon } from '@heroicons/react/solid'
+import { Box, Button, ListItemIcon, ListItemText, SvgIcon } from '@mui/material'
+import Menu from '@mui/material/Menu'
+import MenuItem from '@mui/material/MenuItem'
 import Link from 'next/link'
-import { useState } from 'react';
+import { useState } from 'react'
 
-import { moreMenus } from './menu-items';
+import { moreMenus } from './menu-items'
 
 export function MoreMenu() {
-
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
+  const open = Boolean(anchorEl)
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    setAnchorEl(event.currentTarget)
+  }
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
   return (
     <>
@@ -32,8 +33,8 @@ export function MoreMenu() {
           minWidth: 'unset',
           p: '6px 8px',
           '&:hover': {
-            bgcolor: 'rgba(250, 251, 252, 0.08)',
-          },
+            bgcolor: 'rgba(250, 251, 252, 0.08)'
+          }
         }}
       >
         More
@@ -45,7 +46,7 @@ export function MoreMenu() {
       <Menu
         id="more-menu"
         MenuListProps={{
-          'aria-labelledby': 'more-button',
+          'aria-labelledby': 'more-button'
         }}
         anchorEl={anchorEl}
         open={open}
@@ -56,7 +57,7 @@ export function MoreMenu() {
           <MenuItem key={index}>
             <Link href={item.link}>
               <a>
-                <Box>
+                <Box display="flex">
                   <ListItemIcon>
                     <SvgIcon sx={{ fontSize: '20px' }}>{item.icon}</SvgIcon>
                   </ListItemIcon>
@@ -68,5 +69,5 @@ export function MoreMenu() {
         ))}
       </Menu>
     </>
-  );
+  )
 }

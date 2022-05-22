@@ -1,7 +1,7 @@
-import { Box } from "@mui/material";
-import React, { ReactNode } from "react";
+import { Box } from '@mui/material'
+import React, { ReactNode } from 'react'
 
-import { Header } from "./Header";
+import { Header } from './Header'
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   return (
@@ -9,11 +9,10 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       <Header />
       <Box
         component="main"
-        sx={{ display: "flex", flexDirection: "column", flex: 1 }}
+        sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}
       >
-        sdfgsdfg
         {children}
       </Box>
     </>
-  );
-};
+  )
+}

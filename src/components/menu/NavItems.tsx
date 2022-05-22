@@ -1,24 +1,29 @@
-
-import { Button, List, ListItem, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { navigation } from './menu-items';
-import { MoreMenu } from './MoreMenu';
+import {
+  Button,
+  List,
+  ListItem,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@mui/material'
+import { navigation } from './menu-items'
+import { MoreMenu } from './MoreMenu'
 import Link from 'next/link'
 
 interface NavItemsProps {
-  setOpen?: (value: boolean) => void;
+  setOpen?: (value: boolean) => void
 }
 
 export const NavItems = ({ setOpen }: NavItemsProps) => {
-
-  const { breakpoints } = useTheme();
-  const md = useMediaQuery(breakpoints.down('md'));
+  const { breakpoints } = useTheme()
+  const md = useMediaQuery(breakpoints.down('md'))
 
   return (
     <List
       sx={{
         display: 'flex',
         alignItems: { xs: 'flex-start', md: 'center' },
-        flexDirection: { xs: 'column', md: 'row' },
+        flexDirection: { xs: 'column', md: 'row' }
       }}
       disablePadding
     >
@@ -28,7 +33,7 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
             display:
               !!item.isVisible && !item.isVisible ? 'none' : 'inline-flex',
             width: { xs: '100%', md: 'unset' },
-            mr: { xs: 0, md: 2 },
+            mr: { xs: 0, md: 2 }
           }}
           data-cy={item.dataCy}
           disablePadding
@@ -54,7 +59,7 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
                     position: 'relative',
                     '.active&:after, &:hover&:after': {
                       transform: 'scaleX(1)',
-                      transformOrigin: 'bottom left',
+                      transformOrigin: 'bottom left'
                     },
                     '&:after': {
                       content: "''",
@@ -65,8 +70,8 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
                       bottom: '-6px',
                       left: '0',
                       transformOrigin: 'bottom right',
-                      transition: 'transform 0.25s ease-out',
-                    },
+                      transition: 'transform 0.25s ease-out'
+                    }
                   })}
                 >
                   {item.title}
@@ -77,9 +82,12 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
         </ListItem>
       ))}
 
-      <ListItem sx={{ display: { xs: 'none', md: 'flex' }, width: 'unset' }} disablePadding>
+      <ListItem
+        sx={{ display: { xs: 'none', md: 'flex' }, width: 'unset' }}
+        disablePadding
+      >
         <MoreMenu />
       </ListItem>
     </List>
-  );
-};
+  )
+}
