@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Container } from '@mui/system'
 import Image from 'next/image'
 import { NavItems } from '@/components/menu/NavItems'
-import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { useModal } from '@/components/modal'
 import WalletWidget from '@/components/wallet/WalletWidget'
 
@@ -23,7 +23,6 @@ const HideOnScroll = ({ children }: Props) => {
 }
 
 export const Header = () => {
-
   const modal = useModal()
 
   const handleClick = () => {

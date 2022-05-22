@@ -7,4 +7,3 @@ export function asyncWrapper(
     fn(req, res, next).catch(next)
   }
 }
-

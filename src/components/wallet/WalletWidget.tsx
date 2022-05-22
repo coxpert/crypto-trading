@@ -1,5 +1,9 @@
-import { DuplicateIcon, LogoutIcon } from '@heroicons/react/outline';
-import { ChevronDownIcon, ChevronUpIcon, ExternalLinkIcon } from '@heroicons/react/solid';
+import { DuplicateIcon, LogoutIcon } from '@heroicons/react/outline'
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  ExternalLinkIcon
+} from '@heroicons/react/solid'
 
 import {
   Box,
@@ -14,71 +18,80 @@ import {
   MenuList,
   Skeleton,
   SvgIcon,
-  Typography,
-} from '@mui/material';
-import React, { useEffect, useState } from 'react';
-import { WalletModal } from '../modal/WalletModal';
+  Typography
+} from '@mui/material'
+import React, { useEffect, useState } from 'react'
+import { WalletModal } from '../modal/WalletModal'
 import { useWeb3Context } from '@/hooks/useWeb3Context'
 
-import { getNetworkConfig } from '../../utils/networksConfig';
-import { DrawerWrapper } from './DrawerWrapper';
-import { MobileCloseButton } from './MobileCloseButton';
-import { useModal } from '../modal';
-import { textCenterEllipsis } from '@/utils/utils';
+import { getNetworkConfig } from '../../utils/networksConfig'
+import { DrawerWrapper } from './DrawerWrapper'
+import { MobileCloseButton } from './MobileCloseButton'
+import { useModal } from '../modal'
+import { textCenterEllipsis } from '@/utils/utils'
 import Link from 'next/link'
 
-
 const WalletWidget = () => {
-  const { disconnectWallet, currentAccount, connected, chainId, loading } = useWeb3Context();
+  const { disconnectWallet, currentAccount, connected, chainId, loading } =
+    useWeb3Context()
   const [open, setOpen] = useState(false)
-  const modal = useModal();
+  const modal = useModal()
 
-  const [anchorEl, setAnchorEl] = useState<Element | null>(null);
+  const [anchorEl, setAnchorEl] = useState<Element | null>(null)
 
-  const networkConfig = getNetworkConfig(chainId);
+  const networkConfig = getNetworkConfig(chainId)
 
-  let networkColor = '';
+  let networkColor = ''
   if (networkConfig?.isTestnet) {
-    networkColor = '#7157ff';
+    networkColor = '#7157ff'
   } else {
-    networkColor = '#65c970';
+    networkColor = '#65c970'
   }
 
   useEffect(() => {
     if (connected) {
       modal.close()
     }
+    // eslint-disable-next-line
   }, [connected])
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     if (!connected) {
       modal.openWallet()
     } else {
-      setOpen(true);
-      setAnchorEl(event.currentTarget);
+      setOpen(true)
+      setAnchorEl(event.currentTarget)
     }
-  };
+  }
 
   const handleDisconnect = () => {
     if (connected) {
-      disconnectWallet();
-      handleClose();
-      localStorage.removeItem('mockWalletAddress');
+      disconnectWallet()
+      handleClose()
+      localStorage.removeItem('mockWalletAddress')
     }
-  };
+  }
 
   const handleCopy = async () => {
-    navigator.clipboard.writeText(currentAccount);
-    handleClose();
-  };
+    navigator.clipboard.writeText(currentAccount)
+    handleClose()
+  }
 
-  const buttonContent = currentAccount ? textCenterEllipsis(currentAccount, 6, 6) : "Connect wallet"
+  const buttonContent = currentAccount
+    ? textCenterEllipsis(currentAccount, 6, 6)
+    : 'Connect wallet'
 
-  const Content = ({ component = ListItem }: { component?: typeof MenuItem | typeof ListItem }) => (
+  const Content = ({
+    component = ListItem
+  }: {
+    component?: typeof MenuItem | typeof ListItem
+  }) => (
     <>
       <Typography
         variant="h5"
@@ -86,9 +99,10 @@ const WalletWidget = () => {
           display: { xs: 'block', md: 'none' },
           color: '#A5A8B6',
           px: 4,
-          py: 2,
+          py: 2
         }}
-      >Account
+      >
+        Account
       </Typography>
 
       <Box component={component} disabled>
@@ -100,7 +114,12 @@ const WalletWidget = () => {
           </Box>
         </Box>
       </Box>
-      <Divider sx={{ my: { xs: 7, md: 0 }, borderColor: { xs: '#FFFFFF1F', md: 'divider' } }} />
+      <Divider
+        sx={{
+          my: { xs: 7, md: 0 },
+          borderColor: { xs: '#FFFFFF1F', md: 'divider' }
+        }}
+      />
 
       <Box component={component} disabled>
         <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
@@ -109,10 +128,13 @@ const WalletWidget = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              mb: 1,
+              mb: 1
             }}
           >
-            <Typography variant="caption" color={{ xs: '#FFFFFFB2', md: 'text.secondary' }}>
+            <Typography
+              variant="caption"
+              color={{ xs: '#FFFFFFB2', md: 'text.secondary' }}
+            >
               Network
             </Typography>
           </Box>
@@ -123,17 +145,26 @@ const WalletWidget = () => {
                 width: 6,
                 height: 6,
                 mr: 2,
-                boxShadow: '0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25)',
-                borderRadius: '50%',
+                boxShadow:
+                  '0px 2px 1px rgba(0, 0, 0, 0.05), 0px 0px 1px rgba(0, 0, 0, 0.25)',
+                borderRadius: '50%'
               }}
             />
-            <Typography color={{ xs: '#F1F1F3', md: 'text.primary' }} variant="h5">
+            <Typography
+              color={{ xs: '#F1F1F3', md: 'text.primary' }}
+              variant="h5"
+            >
               {networkConfig.name}
             </Typography>
           </Box>
         </Box>
       </Box>
-      <Divider sx={{ my: { xs: 7, md: 0 }, borderColor: { xs: '#FFFFFF1F', md: 'divider' } }} />
+      <Divider
+        sx={{
+          my: { xs: 7, md: 0 },
+          borderColor: { xs: '#FFFFFF1F', md: 'divider' }
+        }}
+      />
 
       <Box
         component={component}
@@ -146,21 +177,22 @@ const WalletWidget = () => {
               xs: '#F1F1F3',
               md: 'primary.light',
               minWidth: 'unset',
-              marginRight: 12,
-            },
+              marginRight: 12
+            }
           }}
         >
           <SvgIcon fontSize="small">
             <DuplicateIcon />
           </SvgIcon>
         </ListItemIcon>
-        <ListItemText>
-          Copy address
-        </ListItemText>
+        <ListItemText>Copy address</ListItemText>
       </Box>
 
       {networkConfig?.explorerLinkBuilder && (
-        <Link href={networkConfig.explorerLinkBuilder({ address: currentAccount })} passHref >
+        <Link
+          href={networkConfig.explorerLinkBuilder({ address: currentAccount })}
+          passHref
+        >
           <a target="_blank">
             <Box
               component={component}
@@ -173,17 +205,15 @@ const WalletWidget = () => {
                     xs: '#F1F1F3',
                     md: 'primary.light',
                     minWidth: 'unset',
-                    marginRight: 12,
-                  },
+                    marginRight: 12
+                  }
                 }}
               >
                 <SvgIcon fontSize="small">
                   <ExternalLinkIcon />
                 </SvgIcon>
               </ListItemIcon>
-              <ListItemText>
-                View on Explorer
-              </ListItemText>
+              <ListItemText>View on Explorer</ListItemText>
             </Box>
           </a>
         </Link>
@@ -196,19 +226,22 @@ const WalletWidget = () => {
       >
         <ListItemIcon
           sx={{
-            color: { xs: '#F1F1F3', md: 'primary.light', minWidth: 'unset', marginRight: 12 },
+            color: {
+              xs: '#F1F1F3',
+              md: 'primary.light',
+              minWidth: 'unset',
+              marginRight: 12
+            }
           }}
         >
           <SvgIcon fontSize="small">
             <LogoutIcon />
           </SvgIcon>
         </ListItemIcon>
-        <ListItemText>
-          Disconnect Wallet
-        </ListItemText>
+        <ListItemText>Disconnect Wallet</ListItemText>
       </Box>
     </>
-  );
+  )
 
   return (
     <>
@@ -223,33 +256,32 @@ const WalletWidget = () => {
           onClick={handleClick}
           sx={{ p: connected ? '5px 8px' : undefined }}
           endIcon={
-            connected && (
-              open ? <ChevronUpIcon /> : <ChevronDownIcon />
-            )
+            connected && (open ? <ChevronUpIcon /> : <ChevronDownIcon />)
           }
         >
           {buttonContent}
         </Button>
-      )
-      }
+      )}
       <Menu
         id="wallet-menu"
         MenuListProps={{
-          'aria-labelledby': 'wallet-button',
+          'aria-labelledby': 'wallet-button'
         }}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         keepMounted={true}
       >
-        <MenuList disablePadding sx={{ '.MuiMenuItem-root.Mui-disabled': { opacity: 1 } }}>
+        <MenuList
+          disablePadding
+          sx={{ '.MuiMenuItem-root.Mui-disabled': { opacity: 1 } }}
+        >
           <Content component={MenuItem} />
         </MenuList>
       </Menu>
       <WalletModal />
     </>
-  );
+  )
 }
-
 
 export default WalletWidget

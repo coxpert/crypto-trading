@@ -3,7 +3,6 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { getNetworkConfig, getSupportedChainIds } from '@/utils/networksConfig'
-import { UnsupportedChainIdError } from '@web3-react/core'
 import { ChainId } from '@/config'
 
 export enum WalletType {

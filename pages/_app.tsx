@@ -11,8 +11,8 @@ import { config } from '@/config'
 import { Layout } from '@/layouts/Layout'
 import { ModalContextProvider } from '@/components/modal'
 import { SettingModal } from '@/components/modal/SettingModal'
-import { Web3ReactProvider } from '@web3-react/core';
-import { providers } from 'ethers';
+import { Web3ReactProvider } from '@web3-react/core'
+import { providers } from 'ethers'
 import { Web3ContextProvider } from '@/layouts/Web3Provider'
 
 type NextPageWithLayout = NextPage & {
@@ -23,9 +23,9 @@ type NextPageWithLayout = NextPage & {
 const clientSideEmotionCache = createEmotionCache()
 
 const getWeb3Library = (provider: any): providers.Web3Provider => {
-  const library = new providers.Web3Provider(provider);
-  library.pollingInterval = 12000;
-  return library;
+  const library = new providers.Web3Provider(provider)
+  library.pollingInterval = 12000
+  return library
 }
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache

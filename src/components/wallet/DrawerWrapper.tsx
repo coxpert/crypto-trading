@@ -1,14 +1,19 @@
-import { Drawer } from '@mui/material';
-import { ReactNode } from 'react';
+import { Drawer } from '@mui/material'
+import { ReactNode } from 'react'
 
 interface DrawerWrapperProps {
-  open: boolean;
-  setOpen: (value: boolean) => void;
-  headerHeight: number;
-  children: ReactNode;
+  open: boolean
+  setOpen: (value: boolean) => void
+  headerHeight: number
+  children: ReactNode
 }
 
-export const DrawerWrapper = ({ open, setOpen, children, headerHeight }: DrawerWrapperProps) => {
+export const DrawerWrapper = ({
+  open,
+  setOpen,
+  children,
+  headerHeight
+}: DrawerWrapperProps) => {
   return (
     <Drawer
       anchor="top"
@@ -26,11 +31,11 @@ export const DrawerWrapper = ({ open, setOpen, children, headerHeight }: DrawerW
           top: `${headerHeight}px`,
           pt: 6,
           pb: 15,
-          minHeight: '100vh',
-        },
+          minHeight: '100vh'
+        }
       }}
     >
       {children}
     </Drawer>
-  );
-};
+  )
+}

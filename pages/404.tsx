@@ -18,12 +18,11 @@ const ServerErrorPage: NextPage = () => {
     >
       <Box sx={{ mt: 20 }}>
         <Typography variant="h1" textAlign="center">
-          {' '}
-          Page Not Found (404){' '}
+          Page Not Found (404)
         </Typography>
 
         <Typography variant="description" sx={{ my: 5 }}>
-          The page you tried to visit isn't in our system.
+          The page you tried to visit isn&apos;t in our system.
         </Typography>
 
         <Box>
