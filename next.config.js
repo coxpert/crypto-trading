@@ -15,5 +15,8 @@ module.exports = withBundleAnalyzer({
     return config
   },
   reactStrictMode: true,
-  trailingSlash: true
+  trailingSlash: true,
+  images: {
+    domains: ['assets.coingecko.com']
+  }
 })

@@ -12,8 +12,21 @@ import { providers } from 'ethers'
 import { SignatureLike } from '@ethersproject/bytes'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { BaseNetworkConfig, networkConfigs } from '@/config'
-import { ChainId } from 'dexpools-sdk'
+import { ChainId, stringToBytes } from 'dexpools-sdk'
+import { getPairs } from '@/utils/getPairs'
+import { getTokenData } from '@/utils//getTokenData'
+import { getOrderBooks } from '@/utils/getOrderbooks'
+import { getChange } from '@/utils/getChange'
 
+export interface TokenPairList {
+  tokenA: string
+  tokenB: string
+  change: string
+  pair: string
+  symbol: string
+  logoA: string
+  logoB: string
+}
 
 export type Web3Data = {
   connectWallet: (wallet: WalletType) => Promise<void>
@@ -21,7 +34,7 @@ export type Web3Data = {
   connected: boolean
   loading: boolean
   provider: JsonRpcProvider | undefined
-  chainId: number
+  chainId: number | ChainId
   switchNetwork: (chainId: number) => Promise<void>
   getTxError: (txHash: string) => Promise<string>
   error: Error | undefined
@@ -33,7 +46,10 @@ export type Web3Data = {
   setAccount: React.Dispatch<React.SetStateAction<string>>
   network: BaseNetworkConfig
   setNetwork: React.Dispatch<React.SetStateAction<BaseNetworkConfig>>
-  setChainId: React.Dispatch<React.SetStateAction<string>>
+  setChainId: React.Dispatch<React.SetStateAction<ChainId>>
+
+  // Trades Data
+  tokenPairList: TokenPairList[]
 }
 
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
@@ -58,9 +74,54 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
   const [switchNetworkError, setSwitchNetworkError] = useState<Error>()
 
   // Private Connect
-  const [currentChainId, setChainId] = useState<string>(ChainId.METIS_NETWORK)
+  const [currentChainId, setChainId] = useState<ChainId>(ChainId.ARBITRUM_TEST)
   const [currentAccount, setAccount] = useState<string>('')
   const [network, setNetwork] = useState<BaseNetworkConfig>(networkConfigs[currentChainId])
+
+  // Trade Data
+  const [tokenPairList, setTokenPairList] = useState<TokenPairList[]>([])
+
+
+  useEffect(() => {
+    setAccount(localStorage.getItem('-wallet-account:address') || '')
+  }, [])
+
+  useEffect(() => {
+    handleSwitchChain()
+  }, [chainId, currentChainId])
+
+  const handleSwitchChain = async () => {
+    const _chainId = (chainId || currentChainId).toString()
+    if (_chainId) {
+      const [tokenPairs, tokenData, orderBooks] = await Promise.all([
+        getPairs(_chainId),
+        getTokenData(_chainId),
+        getOrderBooks(_chainId)
+      ])
+      console.log(tokenPairs, tokenData, orderBooks)
+      if (tokenPairs && tokenData && orderBooks) {
+        const _pairList: TokenPairList[] = tokenPairs.map(item => {
+          const tokenA = item.symbol.split('/')[0]
+          const tokenB = item.symbol.split('/')[1]
+          const id = stringToBytes(item.symbol)
+          const logoA = tokenData.find(data => data.symbol === tokenA)?.image || ''
+          const logoB = tokenData.find(data => data.symbol === tokenB)?.image || ''
+
+          return {
+            tokenA,
+            tokenB,
+            change: getChange(orderBooks[id]?.trades),
+            pair: item.pair,
+            symbol: item.symbol,
+            logoA,
+            logoB
+          }
+        })
+        setTokenPairList(_pairList)
+        console.log(_pairList)
+      }
+    }
+  }
 
   const disconnectWallet = useCallback(async () => {
     localStorage.removeItem('walletProvider')
@@ -189,11 +250,6 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
     throw new Error('Error getting transaction. Provider not found')
   }
 
-  useEffect(() => {
-    setMockAddress(localStorage.getItem('mockWalletAddress')?.toLowerCase())
-    setAccount(localStorage.getItem('-wallet-account:address') || '')
-  }, [])
-
   return (
     <Web3Context.Provider
       value={{
@@ -215,7 +271,10 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
           setAccount: setAccount,
           network,
           setNetwork,
-          setChainId
+          setChainId,
+
+          // Trade Data
+          tokenPairList
         }
       }}
     >

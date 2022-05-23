@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useWeb3Context } from '@/hooks/useWeb3Context'
 import { networkConfigs } from '@/config'
 import Image from 'next/image'
+import { ChainId } from 'dexpools-sdk'
 
 
 export const SettingModal = () => {
@@ -42,7 +43,7 @@ export const SettingModal = () => {
   }
 
   const handleNetworkChange = (e: SelectChangeEvent<number>) => {
-    const chainId = e.target.value as string
+    const chainId = e.target.value as ChainId
     setChainId(chainId)
     setNetwork(networkConfigs[chainId]);
   };

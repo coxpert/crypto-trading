@@ -54,12 +54,12 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
     baseAssetSymbol: 'METIS',
     wrappedBaseAssetSymbol: 'METIS',
     baseAssetDecimals: 18,
-    explorerLink: 'https://stardust-explorer.metis.io/',
+    explorerLink: 'https://stardust-explorer.metis.io',
     networkLogoPath: '/icons/networks/metis.png'
   },
   [ChainId.ARBITRUM]: {
     id: ChainId.ARBITRUM,
-    name: 'Arbitrum Rinkeby',
+    name: 'Arbitrum',
     publicJsonRPCUrl: ['https://rinkeby.arbitrum.io/rpc'],
     baseUniswapAdapter: '0x0',
     baseAssetSymbol: 'ETH',
@@ -70,7 +70,7 @@ export const networkConfigs: Record<string, BaseNetworkConfig> = {
   },
   [ChainId.ARBITRUM_TEST]: {
     id: ChainId.ARBITRUM_TEST,
-    name: 'Arbitrum',
+    name: 'Arbitrum Test',
     publicJsonRPCUrl: ['https://arb1.arbitrum.io/rpc'],
     baseUniswapAdapter: '0x0',
     baseAssetSymbol: 'ETH',
