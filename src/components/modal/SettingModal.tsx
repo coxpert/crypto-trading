@@ -1,16 +1,18 @@
-import { TextField, Box, Typography, Button, Alert } from '@mui/material'
+import { TextField, Box, Typography, Button, Alert, Select, SelectChangeEvent, MenuItem, InputLabel, FormControl } from '@mui/material'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { BasicModal } from './BasicModal'
 import { ModalType, useModal } from './ModalContextProvider'
 import axios from 'axios'
 import { useWeb3Context } from '@/hooks/useWeb3Context'
+import { networkConfigs } from '@/config'
+import Image from 'next/image'
 
 
 export const SettingModal = () => {
   const { type, close } = useModal()
   const [privateKey, setPrivateKey] = useState<string>()
   const [error, setError] = useState<string>()
-  const { setAccount } = useWeb3Context()
+  const { setAccount, setNetwork, network, setChainId } = useWeb3Context()
 
   useEffect(() => {
     setPrivateKey(localStorage.getItem('-wallet-account:private-key')?.toString())
@@ -39,9 +41,36 @@ export const SettingModal = () => {
     setPrivateKey(e.target.value)
   }
 
+  const handleNetworkChange = (e: SelectChangeEvent<number>) => {
+    const chainId = e.target.value as string
+    setChainId(chainId)
+    setNetwork(networkConfigs[chainId]);
+  };
+
   return (
     <BasicModal open={type === ModalType.Setting} setOpen={close}>
       <Typography variant="h3">Setting</Typography>
+      <FormControl fullWidth sx={{ mt: 5 }}>
+        <InputLabel id="network-label">Network</InputLabel>
+        <Select
+          labelId="network-label"
+          value={network.id}
+          onChange={handleNetworkChange}
+        >
+          {
+            Object.keys(networkConfigs).map(id => (
+              <MenuItem value={id} key={id} sx={{ p: 2 }}>
+                <Box display="flex" alignItems='center'>
+                  <Box sx={{ borderRadius: 100, overflow: 'hidden', mr: 4, width: 30, height: 30 }}>
+                    <Image src={networkConfigs[id].networkLogoPath} width={30} height={30} alt={networkConfigs[id].name} />
+                  </Box>
+                  <Typography>{networkConfigs[id].name}</Typography>
+                </Box>
+              </MenuItem>
+            ))
+          }
+        </Select>
+      </FormControl>
       <Box sx={{ mt: 5 }}>
         {error && (
           <Alert severity="error">

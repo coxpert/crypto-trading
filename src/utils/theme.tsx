@@ -434,7 +434,10 @@ export function getThemedComponents(t: Theme) {
       MuiMenuItem: {
         styleOverrides: {
           root: {
-            padding: '12px 16px'
+            padding: '12px 16px',
+            '.Mui-selected': {
+              backgroundColor: theme.palette.background.paper,
+            }
           }
         }
       },
@@ -713,8 +716,15 @@ export function getThemedComponents(t: Theme) {
       MuiFormControl: {
         styleOverrides: {
           root: {
+            '.MuiInputLabel-root': {
+              color: theme.palette.text.default,
+              backgroundColor: theme.palette.background.default,
+              padding: '0 8px'
+            },
             '.MuiInputLabel-root.Mui-focused': {
-              color: theme.palette.text.default
+              color: theme.palette.text.default,
+              backgroundColor: theme.palette.background.default,
+              padding: '0 8px'
             },
             '.MuiOutlinedInput-root': {
               color: theme.palette.text.default
@@ -811,10 +821,6 @@ export function getThemedComponents(t: Theme) {
         },
         styleOverrides: {
           outlined: {
-            backgroundColor: theme.palette.background.surface,
-            ...theme.typography.buttonM,
-            padding: '6px 12px',
-            color: theme.palette.primary.light
           }
         }
       },

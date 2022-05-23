@@ -12,9 +12,8 @@ Returns account address of the private ky re
 
 ### Request Headers
 
-| Key          | Value            | Description |
-| ------------ | ---------------- | ----------- |
-| Content-Type | application/json |             |
+| Key | Value | Description |
+| --- | ----- | ----------- |
 
 ---
 

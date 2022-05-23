@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import { Web3Data } from '../layouts/Web3Provider'
-// import { Web3Data } from '../web3-data-provider/Web3ContextProvider';
 
 export type Web3ContextData = {
   web3ProviderData: Web3Data

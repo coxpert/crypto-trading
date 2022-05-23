@@ -11,13 +11,13 @@ import { useWeb3React } from '@web3-react/core'
 import { providers } from 'ethers'
 import { SignatureLike } from '@ethersproject/bytes'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import { WalletLinkConnector } from '@web3-react/walletlink-connector'
+import { BaseNetworkConfig, networkConfigs } from '@/config'
+import { ChainId } from 'dexpools-sdk'
 
 
 export type Web3Data = {
   connectWallet: (wallet: WalletType) => Promise<void>
   disconnectWallet: () => void
-  currentAccount: string
   connected: boolean
   loading: boolean
   provider: JsonRpcProvider | undefined
@@ -27,7 +27,13 @@ export type Web3Data = {
   error: Error | undefined
   switchNetworkError: Error | undefined
   setSwitchNetworkError: (err: Error | undefined) => void
+
+  // Private Connect
+  currentAccount: string
   setAccount: React.Dispatch<React.SetStateAction<string>>
+  network: BaseNetworkConfig
+  setNetwork: React.Dispatch<React.SetStateAction<BaseNetworkConfig>>
+  setChainId: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
@@ -44,43 +50,19 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
     setError
   } = useWeb3React<providers.Web3Provider>()
 
-  // const [provider, setProvider] = useState<JsonRpcProvider>();
   const [mockAddress, setMockAddress] = useState<string>()
   const [connector, setConnector] = useState<AbstractConnector>()
   const [loading, setLoading] = useState(false)
   const [tried, setTried] = useState(false)
   const [deactivated, setDeactivated] = useState(false)
   const [switchNetworkError, setSwitchNetworkError] = useState<Error>()
-  const [currentAccount, setAccount] = useState<string>('')
 
-  const cleanConnectorStorage = useCallback((): void => {
-    if (connector instanceof WalletConnectConnector) {
-      localStorage.removeItem('walletconnect')
-    } else if (connector instanceof WalletLinkConnector) {
-      localStorage.removeItem('-walletlink:https://www.walletlink.org:version')
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:session:id'
-      )
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:session:secret'
-      )
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:session:linked'
-      )
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:AppVersion'
-      )
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:Addresses'
-      )
-      localStorage.removeItem(
-        '-walletlink:https://www.walletlink.org:walletUsername'
-      )
-    }
-  }, [connector])
+  // Private Connect
+  const [currentChainId, setChainId] = useState<string>(ChainId.METIS_NETWORK)
+  const [currentAccount, setAccount] = useState<string>('')
+  const [network, setNetwork] = useState<BaseNetworkConfig>(networkConfigs[currentChainId])
 
   const disconnectWallet = useCallback(async () => {
-    cleanConnectorStorage()
     localStorage.removeItem('walletProvider')
     deactivate()
     // @ts-expect-error close can be returned by wallet
@@ -221,14 +203,19 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
           provider,
           connected: active || !!currentAccount,
           loading,
-          chainId: chainId || 1,
+          chainId: chainId || currentChainId,
           switchNetwork,
           getTxError,
           currentAccount: (currentAccount || account)?.toString() || '',
-          setAccount: setAccount,
           error,
           switchNetworkError,
-          setSwitchNetworkError
+          setSwitchNetworkError,
+
+          // Private Connect
+          setAccount: setAccount,
+          network,
+          setNetwork,
+          setChainId
         }
       }}
     >
