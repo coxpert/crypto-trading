@@ -22,3 +22,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.token-input {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  font-family: 'Inter var';
+  font-size: 24px;
+  font-weight: 500;
+  flex: 1 1 auto;
+  &:focus {
+    outline: none;
+  }
+}

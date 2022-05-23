@@ -137,18 +137,19 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
       },
       text: {
         default: getColor('#5E6D7C', '#FFFFFF'),
-        active: getColor('#2F2F2F', '#2F2F2F'),
-        link: getColor('#00ff00', '#00ff00'),
+        active: getColor('rgba(0,250,255,0.71)', 'rgba(0,250,255,0.71)'),
+        link: getColor('rgba(0,250,255,0.71)', 'rgba(0,250,255,0.71)'),
         primary: getColor('#303549', 'rgba(0,250,255,0.71)'),
-        secondary: getColor('#9BA4AE', '#FFFFFF'),
+        secondary: getColor('#9BA4AE', '#9BA4AE'),
         disabled: getColor('#D2D4DC', '#FFFFFF')
       },
       background: {
         header: getColor('#FFFFFF00', '#00000000'),
         default: getColor('#F1F1F3', '#0e0f1b'),
-        paper: getColor('#FFFFFF', '#000000'),
-        surface: getColor('#F7F7F9', '#000000'),
-        tab: getColor('#F8F8F8', '#000000')
+        paper: getColor('#FFFFFF', 'rgb(13, 31, 50)'),
+        surface: getColor('#F7F7F9', 'rgb(13, 31, 50)'),
+        tab: getColor('#F1F1F3', '#0e0f1b'),
+        tabActive: getColor('#F1F1F3', '#232543')
       },
       divider: getColor('#EAEBEF', '#000000'),
       gradients: {
@@ -483,7 +484,8 @@ export function getThemedComponents(t: Theme) {
         styleOverrides: {
           root: {
             borderRadius: 8,
-            padding: 4
+            padding: 4,
+            color: theme.palette.text.default
           }
         },
         variants: [

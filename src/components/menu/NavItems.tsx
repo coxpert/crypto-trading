@@ -9,6 +9,7 @@ import {
 import { navigation } from './menu-items'
 import { MoreMenu } from './MoreMenu'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 interface NavItemsProps {
   setOpen?: (value: boolean) => void
@@ -17,6 +18,7 @@ interface NavItemsProps {
 export const NavItems = ({ setOpen }: NavItemsProps) => {
   const { breakpoints } = useTheme()
   const md = useMediaQuery(breakpoints.down('md'))
+  const router = useRouter()
 
   return (
     <List
@@ -53,8 +55,8 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
             <Link href={item.link}>
               <a>
                 <Button
-                  sx={() => ({
-                    color: '#F1F1F3',
+                  sx={{
+                    color: router.pathname === item.link ? 'text.active' : 'text.default',
                     p: '6px 8px',
                     position: 'relative',
                     '.active&:after, &:hover&:after': {
@@ -72,7 +74,7 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
                       transformOrigin: 'bottom right',
                       transition: 'transform 0.25s ease-out'
                     }
-                  })}
+                  }}
                 >
                   {item.title}
                 </Button>
