@@ -1,11 +1,11 @@
-import LoadingIcon from '../icons/LoadingIcon';
+import LoadingIcon from '../icons/LoadingIcon'
 
 export function Loading() {
   return (
-    <div >
+    <div>
       <LoadingIcon />
     </div>
-  );
+  )
 }
 
 // const styles = css`

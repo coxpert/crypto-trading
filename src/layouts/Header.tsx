@@ -5,7 +5,7 @@ import { NavItems } from '@/components/menu/NavItems'
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined'
 import { useModal } from '@/components/modal'
 import WalletWidget from '@/components/wallet/WalletWidget'
-import Logo from '@/components/logo/Logo';
+import Logo from '@/components/logo/Logo'
 
 interface Props {
   children: React.ReactElement

@@ -1,4 +1,3 @@
-
 import EmptyLayout from '@/layouts/EmptyLayout'
 import dynamic from 'next/dynamic'
 import { NextPageWithLayout } from 'pages'

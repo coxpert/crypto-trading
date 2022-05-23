@@ -56,7 +56,10 @@ export const NavItems = ({ setOpen }: NavItemsProps) => {
               <a>
                 <Button
                   sx={{
-                    color: router.pathname === item.link ? 'text.active' : 'text.default',
+                    color:
+                      router.pathname === item.link
+                        ? 'text.active'
+                        : 'text.default',
                     p: '6px 8px',
                     position: 'relative',
                     '.active&:after, &:hover&:after': {

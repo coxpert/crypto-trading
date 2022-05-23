@@ -76,11 +76,12 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
   // Private Connect
   const [currentChainId, setChainId] = useState<ChainId>(ChainId.ARBITRUM_TEST)
   const [currentAccount, setAccount] = useState<string>('')
-  const [network, setNetwork] = useState<BaseNetworkConfig>(networkConfigs[currentChainId])
+  const [network, setNetwork] = useState<BaseNetworkConfig>(
+    networkConfigs[currentChainId]
+  )
 
   // Trade Data
   const [tokenPairList, setTokenPairList] = useState<TokenPairList[]>([])
-
 
   useEffect(() => {
     setAccount(localStorage.getItem('-wallet-account:address') || '')
@@ -100,12 +101,14 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
       ])
       console.log(tokenPairs, tokenData, orderBooks)
       if (tokenPairs && tokenData && orderBooks) {
-        const _pairList: TokenPairList[] = tokenPairs.map(item => {
+        const _pairList: TokenPairList[] = tokenPairs.map((item) => {
           const tokenA = item.symbol.split('/')[0]
           const tokenB = item.symbol.split('/')[1]
           const id = stringToBytes(item.symbol)
-          const logoA = tokenData.find(data => data.symbol === tokenA)?.image || ''
-          const logoB = tokenData.find(data => data.symbol === tokenB)?.image || ''
+          const logoA =
+            tokenData.find((data) => data.symbol === tokenA)?.image || ''
+          const logoB =
+            tokenData.find((data) => data.symbol === tokenB)?.image || ''
 
           return {
             tokenA,
@@ -215,9 +218,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
                     symbol: networkInfo.baseAssetSymbol,
                     decimals: networkInfo.baseAssetDecimals
                   },
-                  rpcUrls: [
-                    ...networkInfo.publicJsonRPCUrl
-                  ],
+                  rpcUrls: [...networkInfo.publicJsonRPCUrl],
                   blockExplorerUrls: [networkInfo.explorerLink]
                 }
               ])

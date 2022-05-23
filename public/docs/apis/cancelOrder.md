@@ -27,7 +27,6 @@
 
 ### Response
 
-
 ```json
 {
   "status": 200,

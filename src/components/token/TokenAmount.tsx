@@ -1,17 +1,24 @@
-import { Paper, Typography, Input, Box } from "@mui/material"
-import { useState } from "react"
+import { Paper, Typography, Input, Box } from '@mui/material'
+import { useState } from 'react'
+import Image from 'next/image'
+import { height } from '@mui/system'
 
+interface TokenAmountProps {
+    token: string | undefined
+    logoUrl: string | undefined
+}
 
-const TokenAmount = () => {
+const TokenAmount = ({ token, logoUrl }: TokenAmountProps) => {
 
     const [amount, setAmount] = useState<number>()
-    const [token, setToken] = useState<string>()
 
     return (
         <Paper sx={{ width: '100%', px: 4, py: 2 }}>
-            <Box display="flex" justifyContent="space-between" alignItems="flex-end" >
+            <Box display="flex" justifyContent="space-between" alignItems="flex-end">
                 <Typography variant="h5">Amount</Typography>
-                <Typography variant="description" sx={{ color: 'text.secondary' }}>Balance: 0</Typography>
+                <Typography variant="description" sx={{ color: 'text.secondary' }}>
+                    Balance: 0
+                </Typography>
             </Box>
             <Box display="flex" alignItems="center" sx={{ mt: 1 }}>
                 <Input
@@ -24,7 +31,7 @@ const TokenAmount = () => {
                             display: 'none'
                         },
                         '::before': {
-                            display: 'none',
+                            display: 'none'
                         }
                     }}
                 />
@@ -40,8 +47,24 @@ const TokenAmount = () => {
                         MAX
                     </Typography>
                 </Box>
-                <Box>
-                    sdfgsdfg
+                <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    sx={{
+                        backgroundColor: 'background.tabActive',
+                        width: 100,
+                        height: 26,
+                        px: 1,
+                        borderRadius: 1
+                    }}
+                >
+                    {logoUrl && (
+                        <Box sx={{ width: 18, height: 18 }}>
+                            <Image src={logoUrl} width={18} height={18} alt={token} />
+                        </Box>
+                    )}
+                    {token && <Typography sx={{ pl: 3 }}>{token}</Typography>}
                 </Box>
             </Box>
         </Paper>

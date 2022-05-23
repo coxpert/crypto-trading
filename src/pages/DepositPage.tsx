@@ -1,4 +1,3 @@
-
 import { Box, Container, Grid } from '@mui/material'
 import DepositWithdrawCard from '@/components/trade/DepositWithdraw'
 import DepositWithdrawHistory from '@/components/trade/DepositWithdrawHistory'

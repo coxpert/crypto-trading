@@ -1,11 +1,11 @@
-import { Box, Typography } from '@mui/material';
-import { FunctionComponent, RefObject } from 'react';
+import { Box, Typography } from '@mui/material'
+import { FunctionComponent, RefObject } from 'react'
 
 export interface TabProps {
-  title: string | JSX.Element;
-  isActive?: boolean;
-  onClick: () => void;
-  position: number;
+  title: string | JSX.Element
+  isActive?: boolean
+  onClick: () => void
+  position: number
 }
 
 export const TabTitleItem: FunctionComponent<TabProps> = ({
@@ -34,9 +34,7 @@ export const TabTitleItem: FunctionComponent<TabProps> = ({
         }
       }}
     >
-      <Typography variant='h6'>
-        {title}
-      </Typography>
+      <Typography variant="h6">{title}</Typography>
     </Box>
-  );
-};
+  )
+}

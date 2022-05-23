@@ -315,6 +315,7 @@ export function getThemedComponents(t: Theme) {
               backgroundImage: theme.palette.gradients.default,
               '&:hover, &.Mui-focusVisible': {
                 backgroundColor: theme.palette.primary.dark,
+                backgroundImage: 'none',
                 boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.23)'
               },
               padding: '8px 20px'
@@ -436,7 +437,7 @@ export function getThemedComponents(t: Theme) {
           root: {
             padding: '12px 16px',
             '.Mui-selected': {
-              backgroundColor: theme.palette.background.paper,
+              backgroundColor: theme.palette.background.paper
             }
           }
         }
@@ -757,7 +758,7 @@ export function getThemedComponents(t: Theme) {
           {
             props: { color: 'error' },
             style: {
-              color: theme.palette.error.main,
+              color: theme.palette.error.main
             }
           },
           {
@@ -820,8 +821,7 @@ export function getThemedComponents(t: Theme) {
           )
         },
         styleOverrides: {
-          outlined: {
-          }
+          outlined: {}
         }
       },
       MuiLinearProgress: {
