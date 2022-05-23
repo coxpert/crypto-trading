@@ -35,3 +35,89 @@ a {
     outline: none;
   }
 }
+
+.docs-page {
+  .side-bar {
+    position: fixed;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    top: 0;
+    border-right: solid 1px gray;
+    overflow-y: auto;
+    padding-bottom: 200px;
+
+    &::-webkit-scrollbar {
+      width: 1px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .list-item {
+      width: 100%;
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 8px;
+        border-radius: 10px;
+        line-height: 40px;
+
+        &:hover {
+          color: white;
+          cursor: pointer;
+          .icon {
+            fill: white;
+          }
+        }
+
+        .icon {
+          width: 14px;
+          height: 14px;
+        }
+
+        &[data-active='true'] {
+          color: white;
+        }
+
+        &[data-open='true'] {
+          .icon {
+            transform: rotate(90deg);
+          }
+        }
+      }
+
+      .menu-list {
+        padding-left: 20px;
+        height: 0;
+        overflow: hidden;
+
+        &[data-open='true'] {
+          height: 100%;
+        }
+      }
+    }
+  }
+
+  .content {
+    width: 100%;
+    padding-left: 320px;
+
+    .doc-page {
+      padding-top: 20px;
+      min-height: 80vh;
+      width: 100%;
+    }
+  }
+}

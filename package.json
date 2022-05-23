@@ -25,6 +25,7 @@
     "@mui/utils": "^5.8.0",
     "@next/bundle-analyzer": "^12.1.6",
     "@svgr/webpack": "^6.2.1",
+    "@types/react-syntax-highlighter": "^15.5.1",
     "@web3-react/core": "^6.1.9",
     "axios": "^0.27.2",
     "dexpools-sdk": "^1.0.252",
@@ -35,7 +36,10 @@
     "next": "12.1.6",
     "nodemon": "^2.0.16",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-markdown": "^8.0.3",
+    "react-syntax-highlighter": "^15.5.0",
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

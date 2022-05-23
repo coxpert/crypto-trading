@@ -14,10 +14,7 @@ import { SettingModal } from '@/components/modal/SettingModal'
 import { Web3ReactProvider } from '@web3-react/core'
 import { providers } from 'ethers'
 import { Web3ContextProvider } from '@/layouts/Web3Provider'
-
-type NextPageWithLayout = NextPage & {
-  layout?: React.FunctionComponent
-}
+import { NextPageWithLayout } from 'pages'
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
