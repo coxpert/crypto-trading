@@ -1,27 +1,58 @@
-import { TextField, Box, Typography, Button } from '@mui/material'
-import React from 'react'
+import { TextField, Box, Typography, Button, Alert } from '@mui/material'
+import React, { ChangeEvent, useEffect, useState } from 'react'
 import { BasicModal } from './BasicModal'
 import { ModalType, useModal } from './ModalContextProvider'
+import axios from 'axios'
+import { useWeb3Context } from '@/hooks/useWeb3Context'
 
 
 export const SettingModal = () => {
   const { type, close } = useModal()
+  const [privateKey, setPrivateKey] = useState<string>()
+  const [error, setError] = useState<string>()
+  const { setAccount } = useWeb3Context()
 
-  const handleClick = () => {
-    web3.eth.accounts.privateKeyToAccount('9dad3f06813a4677039620e459280c1dc2c826d267c3fbbc213ef1f50fa17d57').then(res => {
-      console.log(res)
+  useEffect(() => {
+    setPrivateKey(localStorage.getItem('-wallet-account:private-key')?.toString())
+  }, [])
+
+  const connectAccount = () => {
+    setError('')
+    if (!privateKey) {
+      setError('Please enter your account private key')
+      return
+    }
+    axios.get('/web3/get-account-by-private-key', { params: { privateKey } }).then(({ data }) => {
+      if (data.valid) {
+        localStorage.setItem('-wallet-account:private-key', privateKey)
+        localStorage.setItem('-wallet-account:address', data.address)
+        setAccount(data.address)
+        close()
+      } else {
+        setError(data.error)
+      }
     })
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setError(undefined)
+    setPrivateKey(e.target.value)
   }
 
   return (
     <BasicModal open={type === ModalType.Setting} setOpen={close}>
       <Typography variant="h3">Setting</Typography>
       <Box sx={{ mt: 5 }}>
-        <TextField label="Private Key" fullWidth variant="outlined" />
+        {error && (
+          <Alert severity="error">
+            {error}
+          </Alert>
+        )}
+        <TextField value={privateKey} onChange={handleChange} label="Private Key" fullWidth variant="outlined" />
       </Box>
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button variant="primary" onClick={handleClick}>
-          Save
+        <Button variant="primary" onClick={connectAccount}>
+          Connect
         </Button>
         <Button
           onClick={() => {
@@ -29,6 +60,7 @@ export const SettingModal = () => {
           }}
           variant="secondary"
           sx={{ ml: 4 }}
+          disabled={!privateKey}
         >
           Close
         </Button>

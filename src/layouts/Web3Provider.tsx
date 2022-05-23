@@ -13,13 +13,6 @@ import { SignatureLike } from '@ethersproject/bytes'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 
-export type ERC20TokenType = {
-  address: string
-  symbol: string
-  decimals: number
-  image?: string
-  aToken?: boolean
-}
 
 export type Web3Data = {
   connectWallet: (wallet: WalletType) => Promise<void>
@@ -34,6 +27,7 @@ export type Web3Data = {
   error: Error | undefined
   switchNetworkError: Error | undefined
   setSwitchNetworkError: (err: Error | undefined) => void
+  setAccount: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
@@ -56,19 +50,9 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
   const [loading, setLoading] = useState(false)
   const [tried, setTried] = useState(false)
   const [deactivated, setDeactivated] = useState(false)
-  const [triedSafe, setTriedSafe] = useState(false)
   const [switchNetworkError, setSwitchNetworkError] = useState<Error>()
+  const [currentAccount, setAccount] = useState<string>('')
 
-  // for now we use network changed as it returns the chain string instead of hex
-  // const handleChainChanged = (chainId: number) => {
-  //   console.log('chainChanged', chainId);
-  //   if (selectedWallet) {
-  //     connectWallet(selectedWallet);
-  //   }
-  // };
-
-  // Wallet connection and disconnection
-  // clean local storage
   const cleanConnectorStorage = useCallback((): void => {
     if (connector instanceof WalletConnectConnector) {
       localStorage.removeItem('walletconnect')
@@ -112,6 +96,12 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
     if (mockAddress) {
       setMockAddress(undefined)
       localStorage.removeItem('mockWalletAddress')
+    }
+
+    if (currentAccount) {
+      setAccount('')
+      localStorage.removeItem('-wallet-account:address')
+      localStorage.removeItem('-wallet-account:private-key')
     }
   }, [provider, connector])
 
@@ -183,8 +173,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
                     decimals: networkInfo.baseAssetDecimals
                   },
                   rpcUrls: [
-                    ...networkInfo.publicJsonRPCUrl,
-                    networkInfo.publicJsonRPCWSUrl
+                    ...networkInfo.publicJsonRPCUrl
                   ],
                   blockExplorerUrls: [networkInfo.explorerLink]
                 }
@@ -220,6 +209,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
 
   useEffect(() => {
     setMockAddress(localStorage.getItem('mockWalletAddress')?.toLowerCase())
+    setAccount(localStorage.getItem('-wallet-account:address') || '')
   }, [])
 
   return (
@@ -229,12 +219,13 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
           connectWallet,
           disconnectWallet,
           provider,
-          connected: active,
+          connected: active || !!currentAccount,
           loading,
           chainId: chainId || 1,
           switchNetwork,
           getTxError,
-          currentAccount: mockAddress || account?.toLowerCase() || '',
+          currentAccount: (currentAccount || account)?.toString() || '',
+          setAccount: setAccount,
           error,
           switchNetworkError,
           setSwitchNetworkError

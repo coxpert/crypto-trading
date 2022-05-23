@@ -116,9 +116,9 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
         dark: getColor('#F0F3FB', '#000000')
       },
       error: {
-        main: getColor('#BC0000B8', '#000000'),
-        light: getColor('#D26666', '#000000'),
-        dark: getColor('#BC0000', '#000000')
+        main: getColor('#d32f2f', '#d32f2f'),
+        light: getColor('#ef5350', '#ef5350'),
+        dark: getColor('#c62828', '#c62828')
       },
       warning: {
         main: getColor('#F89F1A', '#000000'),
@@ -254,24 +254,6 @@ type ThemeType = Theme & {
     buttonL: CSSProperties
     buttonM: CSSProperties
     subheader1: CSSProperties
-  }
-  palette: {
-    success: {
-      100: string
-      200: string
-    }
-    info: {
-      100: string
-      200: string
-    }
-    warning: {
-      100: string
-      200: string
-    }
-    error: {
-      100: string
-      200: string
-    }
   }
 }
 
@@ -612,7 +594,7 @@ export function getThemedComponents(t: Theme) {
           root: {
             boxShadow: 'none',
             borderRadius: '4px',
-            padding: '8px 12px',
+            padding: '8px 0px',
             ...theme.typography.caption,
             alignItems: 'flex-start',
             '.MuiAlert-message': {
@@ -677,52 +659,52 @@ export function getThemedComponents(t: Theme) {
           {
             props: { severity: 'error' },
             style: {
-              color: theme.palette.error['100'],
-              background: theme.palette.error['200'],
+              color: theme.palette.error.main,
+              background: theme.palette.error.light,
               a: {
-                color: theme.palette.error['100']
+                color: theme.palette.error.main
               },
               '.MuiButton-text': {
-                color: theme.palette.error['100']
+                color: theme.palette.error.main
               }
             }
           },
           {
             props: { severity: 'info' },
             style: {
-              color: theme.palette.info['100'],
-              background: theme.palette.info['200'],
+              color: theme.palette.info.main,
+              background: theme.palette.info.light,
               a: {
-                color: theme.palette.info['100']
+                color: theme.palette.info.main
               },
               '.MuiButton-text': {
-                color: theme.palette.info['100']
+                color: theme.palette.info.main
               }
             }
           },
           {
             props: { severity: 'success' },
             style: {
-              color: theme.palette.success['100'],
-              background: theme.palette.success['200'],
+              color: theme.palette.success.main,
+              background: theme.palette.success.light,
               a: {
-                color: theme.palette.success['100']
+                color: theme.palette.success.main
               },
               '.MuiButton-text': {
-                color: theme.palette.success['100']
+                color: theme.palette.success.main
               }
             }
           },
           {
             props: { severity: 'warning' },
             style: {
-              color: theme.palette.warning['100'],
-              background: theme.palette.warning['200'],
+              color: theme.palette.warning.main,
+              background: theme.palette.warning.light,
               a: {
-                color: theme.palette.warning['100']
+                color: theme.palette.warning.main
               },
               '.MuiButton-text': {
-                color: theme.palette.warning['100']
+                color: theme.palette.warning.main
               }
             }
           }
@@ -760,7 +742,33 @@ export function getThemedComponents(t: Theme) {
           root: {
             color: theme.palette.text.default
           }
-        }
+        },
+        variants: [
+          {
+            props: { color: 'error' },
+            style: {
+              color: theme.palette.error.main,
+            }
+          },
+          {
+            props: { color: 'info' },
+            style: {
+              color: theme.palette.info.main
+            }
+          },
+          {
+            props: { color: 'success' },
+            style: {
+              color: theme.palette.success.main
+            }
+          },
+          {
+            props: { color: 'warning' },
+            style: {
+              color: theme.palette.warning.main
+            }
+          }
+        ]
       },
       MuiToggleButtonGroup: {
         styleOverrides: {

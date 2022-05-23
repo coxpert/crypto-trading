@@ -249,7 +249,7 @@ const WalletWidget = () => {
         <Skeleton height={36} width={126} sx={{ background: '#383D51' }} />
       ) : (
         <Button
-          variant={connected ? 'surface' : 'primary'}
+          variant={connected ? 'secondary' : 'primary'}
           aria-label="wallet"
           id="wallet-button"
           aria-haspopup="true"
