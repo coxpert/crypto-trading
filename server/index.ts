@@ -1,5 +1,5 @@
 import next from 'next'
-import express, { Express, Request, Response } from 'express'
+import express, { Express } from 'express'
 import { IncomingMessage, ServerResponse } from 'http'
 import router from './routes'
 

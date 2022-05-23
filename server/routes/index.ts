@@ -2,6 +2,7 @@ import { Router } from 'express'
 import boom from 'express-boom'
 
 import trade from './trade'
+import web3 from './web3'
 
 const router = Router()
 
@@ -13,5 +14,6 @@ router.get('/version', (_req, res) =>
 )
 
 router.use('/trade', trade)
+router.use('/web3', web3)
 
 export default router

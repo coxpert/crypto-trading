@@ -1,6 +1,6 @@
 import useFileLoader from '@/hooks/useFileContent';
 import Logo from '@/components/logo/Logo';
-import { ChevronRightIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon, ChevronDownIcon } from '@heroicons/react/outline';
 import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Loading } from '@/components/elements/Loading';
@@ -17,14 +17,27 @@ import { darcula } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import remarkGfm from 'remark-gfm';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import ReactMarkdown from "react-markdown";
-export const menu: ListItemType[] = [
-  { title: 'Overview', url: '/docs/README.md' },
-];
 export interface ListItemType {
   title: string;
   url?: string;
   list?: ListItemType[];
 }
+
+export const menu: ListItemType[] = [
+  { title: 'Overview', url: '/docs/README.md' },
+  {
+    title: 'APIs', list: [
+      { title: 'Get Account by Private Key', url: '/docs/apis/getAccountByPrivateKey.md' },
+      { title: 'Get Latest Price', url: '/docs/apis/getLatestPrice.md' },
+      { title: 'Get Order Books', url: '/docs/apis/getOrderBooks.md' },
+      { title: 'Post Order', url: '/docs/apis/postOrder.md' },
+      { title: 'Cancel Order', url: '/docs/apis/cancelOrder.md' },
+      { title: 'Get Charts', url: '/docs/apis/getCharts.md' },
+      { title: 'Deposit Token', url: '/docs/apis/depositToken.md' },
+      { title: 'Withdraw Token', url: '/docs/apis/withdrawToken.md' },
+    ]
+  },
+];
 
 function ListItem({ item, handleMenuItemClick, url }: { item: ListItemType; handleMenuItemClick: (url: string) => void; url: string }) {
   const [open, setOpen] = useState(false);
@@ -55,11 +68,32 @@ function ListItem({ item, handleMenuItemClick, url }: { item: ListItemType; hand
     }
   };
 
+  const active = item.url && item.url === url
+
   return (
-    <Box className="list-item">
-      <Box className="menu-item" onClick={handleItemClick} data-open={open} data-active={url === item.url}>
-        {item.list ? <Typography variant='h5'>{item.title}</Typography> : <Typography variant='h6'>{item.title}</Typography>}
-        {item.list && <ChevronRightIcon />}
+    <Box sx={{ color: 'text.default' }} className="list-item">
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          cursor: 'pointer',
+          lineHeight: '40px',
+          ml: 2,
+          borderRadius: 1,
+          p: 2,
+          ':hover': {
+            backgroundColor: 'background.surface'
+          }
+        }}
+        onClick={handleItemClick}
+      >
+        {item.list ? <Typography variant='h5'>{item.title}</Typography> : <Typography variant='h6' sx={{ color: active ? 'text.active' : 'text.default' }}>{item.title}</Typography>}
+        {item.list && (
+          <Box sx={{ width: 20, height: 20, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            {open ? <ChevronDownIcon /> : <ChevronRightIcon />}
+          </Box>
+        )}
       </Box>
       <Box className="menu-list" data-open={open}>
         {item.list?.map((t, i) => (
@@ -115,7 +149,8 @@ export default function DocsPage() {
                         {children}
                       </code>
                     );
-                  }
+                  },
+                  em: ({ node, ...props }) => <i style={{ color: 'gold' }} {...props} />
                 }}
                 remarkPlugins={[remarkGfm]}
               />

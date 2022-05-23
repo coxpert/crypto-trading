@@ -3,10 +3,15 @@ import React from 'react'
 import { BasicModal } from './BasicModal'
 import { ModalType, useModal } from './ModalContextProvider'
 
+
 export const SettingModal = () => {
   const { type, close } = useModal()
 
-  const handleClick = () => {}
+  const handleClick = () => {
+    web3.eth.accounts.privateKeyToAccount('9dad3f06813a4677039620e459280c1dc2c826d267c3fbbc213ef1f50fa17d57').then(res => {
+      console.log(res)
+    })
+  }
 
   return (
     <BasicModal open={type === ModalType.Setting} setOpen={close}>
