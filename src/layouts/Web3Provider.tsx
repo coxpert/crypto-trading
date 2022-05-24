@@ -15,7 +15,7 @@ import { BaseNetworkConfig, networkConfigs } from '@/config'
 import { ChainId, stringToBytes } from 'dexpools-sdk'
 import { getPairs } from '@/utils/getPairs'
 import { getTokenData } from '@/utils//getTokenData'
-import { getOrderBooks } from '@/utils/getOrderbooks'
+import { getOrderBooks, HistoryItem, OrderBook } from '@/utils/getOrderbooks'
 import { getChange } from '@/utils/getChange'
 
 export interface TokenPairList {
@@ -50,6 +50,7 @@ export type Web3Data = {
 
   // Trades Data
   tokenPairList: TokenPairList[]
+  orderBook: OrderBook | null
 }
 
 export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
@@ -82,6 +83,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
 
   // Trade Data
   const [tokenPairList, setTokenPairList] = useState<TokenPairList[]>([])
+  const [orderBook, setOrderBook] = useState<OrderBook | null>(null)
 
   useEffect(() => {
     setAccount(localStorage.getItem('-wallet-account:address') || '')
@@ -99,7 +101,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
         getTokenData(_chainId),
         getOrderBooks(_chainId)
       ])
-      console.log(tokenPairs, tokenData, orderBooks)
+
       if (tokenPairs && tokenData && orderBooks) {
         const _pairList: TokenPairList[] = tokenPairs.map((item) => {
           const tokenA = item.symbol.split('/')[0]
@@ -121,7 +123,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
           }
         })
         setTokenPairList(_pairList)
-        console.log(_pairList)
+        setOrderBook(orderBooks)
       }
     }
   }
@@ -275,7 +277,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
           setChainId,
 
           // Trade Data
-          tokenPairList
+          tokenPairList,
+          orderBook
         }
       }}
     >

@@ -24,21 +24,21 @@ export interface ListItemType {
 }
 
 export const menu: ListItemType[] = [
-  { title: 'Overview', url: '/docs/README.md' },
+  { title: 'Overview', url: '/docs/README' },
   {
     title: 'APIs',
     list: [
       {
         title: 'Get Account by Private Key',
-        url: '/docs/apis/getAccountByPrivateKey.md'
+        url: '/docs/apis/getAccountByPrivateKey'
       },
-      { title: 'Get Latest Price', url: '/docs/apis/getLatestPrice.md' },
-      { title: 'Get Order Books', url: '/docs/apis/getOrderBooks.md' },
-      { title: 'Post Order', url: '/docs/apis/postOrder.md' },
-      { title: 'Cancel Order', url: '/docs/apis/cancelOrder.md' },
-      { title: 'Get Charts', url: '/docs/apis/getCharts.md' },
-      { title: 'Deposit Token', url: '/docs/apis/depositToken.md' },
-      { title: 'Withdraw Token', url: '/docs/apis/withdrawToken.md' }
+      { title: 'Get Latest Price', url: '/docs/apis/getLatestPrice' },
+      { title: 'Get Order Books', url: '/docs/apis/getOrderBooks' },
+      { title: 'Post Order', url: '/docs/apis/postOrder' },
+      { title: 'Cancel Order', url: '/docs/apis/cancelOrder' },
+      { title: 'Get Charts', url: '/docs/apis/getCharts' },
+      { title: 'Deposit Token', url: '/docs/apis/depositToken' },
+      { title: 'Withdraw Token', url: '/docs/apis/withdrawToken' }
     ]
   }
 ]
@@ -139,8 +139,8 @@ function ListItem({
 }
 
 export default function DocsPage() {
-  const [url, setUrl] = useState<string>('/docs/README.md')
-  const { content, loading } = useFileLoader({ url })
+  const [url, setUrl] = useState<string>('/docs/README')
+  const { content, loading } = useFileLoader({ url: url + '.md' })
   const router = useRouter()
   const params = router.query as { doc: string }
   useEffect(() => {

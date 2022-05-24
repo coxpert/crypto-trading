@@ -106,9 +106,9 @@ export const getDesignTokens = (mode: 'light' | 'dark') => {
     palette: {
       mode,
       primary: {
-        main: getColor('#0C3EE3', '#000000'),
-        light: getColor('#0C3EE3', '#000000'),
-        dark: getColor('#0a33bb', '#000000')
+        main: getColor('#0C3EE3', '#0C3EE3'),
+        light: getColor('#0C3EE3', '#0C3EE3'),
+        dark: getColor('#0a33bb', '#0a33bb')
       },
       secondary: {
         main: getColor('#F0F3FB', '#FFFFFF'),

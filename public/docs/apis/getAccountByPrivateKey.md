@@ -5,15 +5,16 @@ Returns account address of the private ky re
 ### _GET_
 
 ```bash
-/web3/get-account-by-private-key
+/dex/get-account-by-private-key
 ```
 
 ---
 
 ### Request Headers
 
-| Key | Value | Description |
-| --- | ----- | ----------- |
+| Key          | Value            | Description |
+| ------------ | ---------------- | ----------- |
+| Content-Type | application/json |             |
 
 ---
 

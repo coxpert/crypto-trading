@@ -1,20 +1,28 @@
+import { useWeb3Context } from '@/hooks/useWeb3Context'
+import { TokenPairList } from '@/layouts/Web3Provider'
+import { OrderItem } from '@/utils/getOrderbooks'
 import { Paper } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import CustomTable, { Column } from '../table'
 
 const columns: Column[] = [
-  { id: 'dateTime', label: 'Date & Time' },
-  { id: 'pair', label: 'Pair' },
-  { id: 'size', label: 'Size' },
+  { id: 'timestamp', label: 'Date & Time' },
   { id: 'side', label: 'Side' },
-  { id: 'filled', label: 'Filled' },
+  { id: 'quantityfilled', label: 'Filled' },
   { id: 'price', label: 'Price' },
-  { id: 'free', label: 'Fee' },
+  { id: 'totalfee', label: 'Fee' },
   { id: 'action', label: 'Action' }
 ]
 
-const OrderHistory = () => {
-  const [filteredData, setFilteredData] = useState<any[]>([])
+const OrderHistory = ({ pair }: { pair: TokenPairList | undefined }) => {
+  const [filteredData, setFilteredData] = useState<OrderItem[]>([])
+  const { orderBook } = useWeb3Context()
+
+  useEffect(() => {
+    if (orderBook && pair && orderBook[pair.pair]) {
+      setFilteredData(orderBook[pair.pair].orders)
+    }
+  }, [orderBook, pair])
 
   return (
     <Paper sx={{ width: '100%' }}>

@@ -6,16 +6,18 @@ import { height } from '@mui/system'
 interface TokenAmountProps {
     token: string | undefined
     logoUrl: string | undefined
+    label?: string
+    balance?: number
 }
 
-const TokenAmount = ({ token, logoUrl }: TokenAmountProps) => {
+const TokenAmount = ({ token, logoUrl, label, balance }: TokenAmountProps) => {
 
     const [amount, setAmount] = useState<number>()
 
     return (
         <Paper sx={{ width: '100%', px: 4, py: 2 }}>
             <Box display="flex" justifyContent="space-between" alignItems="flex-end">
-                <Typography variant="h5">Amount</Typography>
+                <Typography variant="h5">{label || 'Amount'}</Typography>
                 <Typography variant="description" sx={{ color: 'text.secondary' }}>
                     Balance: 0
                 </Typography>

@@ -14,6 +14,6 @@ router.get('/version', (_req, res) =>
 )
 
 router.use('/trade', trade)
-router.use('/web3', web3)
+router.use('/dex', web3)
 
 export default router
