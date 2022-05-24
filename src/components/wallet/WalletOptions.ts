@@ -3,7 +3,7 @@ import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { getNetworkConfig, getSupportedChainIds } from '@/utils/networksConfig'
-import { ChainId } from '@/config'
+import { ChainId } from 'dexpools-sdk'
 
 export enum WalletType {
   INJECTED = 'injected',
@@ -16,10 +16,9 @@ const APP_LOGO_URL = 'https://aave.com/favicon.ico'
 
 export const getWallet = (
   wallet: WalletType = WalletType.WALLET_CONNECT,
-  chainId: ChainId = ChainId.mainnet
+  chainId: ChainId = ChainId.ARBITRUM_TEST
 ): AbstractConnector => {
   const supportedChainIds = getSupportedChainIds()
-
   switch (wallet) {
     case WalletType.INJECTED:
       return new InjectedConnector({})

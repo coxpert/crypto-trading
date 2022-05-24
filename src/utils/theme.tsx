@@ -545,16 +545,16 @@ export function getThemedComponents(t: Theme) {
       MuiSwitch: {
         styleOverrides: {
           root: {
-            height: 20 + 6 * 2,
-            width: 34 + 6 * 2,
+            height: 24 + 6 * 2,
+            width: 48 + 6 * 2,
             padding: 6
           },
           switchBase: {
             padding: 8,
             '&.Mui-checked': {
-              transform: 'translateX(14px)',
+              transform: 'translateX(23px)',
               '& + .MuiSwitch-track': {
-                backgroundColor: theme.palette.success.main,
+                backgroundColor: theme.palette.primary.main,
                 opacity: 1
               }
             },
@@ -564,15 +564,15 @@ export function getThemedComponents(t: Theme) {
           },
           thumb: {
             color: theme.palette.common.white,
-            borderRadius: '6px',
-            width: '16px',
-            height: '16px',
+            borderRadius: 100,
+            width: 20,
+            height: 20,
             boxShadow: '0px 1px 1px rgba(0, 0, 0, 0.12)'
           },
           track: {
             opacity: 1,
-            backgroundColor: theme.palette.primary.main,
-            borderRadius: '8px'
+            backgroundColor: 'gray',
+            borderRadius: 100
           }
         }
       },

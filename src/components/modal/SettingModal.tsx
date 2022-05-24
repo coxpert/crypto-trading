@@ -8,7 +8,9 @@ import {
   SelectChangeEvent,
   MenuItem,
   InputLabel,
-  FormControl
+  FormControl,
+  FormGroup,
+  FormControlLabel
 } from '@mui/material'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import { BasicModal } from './BasicModal'
@@ -18,12 +20,15 @@ import { useWeb3Context } from '@/hooks/useWeb3Context'
 import { networkConfigs } from '@/config'
 import Image from 'next/image'
 import { ChainId } from 'dexpools-sdk'
+import Switch from '@mui/material/Switch';
+import { useColorMode } from '@/layouts/AppGlobalStyles'
 
 export const SettingModal = () => {
   const { type, close } = useModal()
   const [privateKey, setPrivateKey] = useState<string>()
   const [error, setError] = useState<string>()
   const { setAccount, setNetwork, network, setChainId } = useWeb3Context()
+  const { toggleColorMode, mode } = useColorMode()
 
   useEffect(() => {
     setPrivateKey(
@@ -106,6 +111,20 @@ export const SettingModal = () => {
           fullWidth
           variant="outlined"
         />
+      </Box>
+      <Box display="flex" sx={{ p: 2 }}>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                defaultChecked={mode === "dark"}
+                onChange={() => {
+                  toggleColorMode()
+                }}
+              />}
+            label="Toggle Color Mode"
+          />
+        </FormGroup>
       </Box>
       <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-end' }}>
         <Button variant="primary" onClick={connectAccount}>

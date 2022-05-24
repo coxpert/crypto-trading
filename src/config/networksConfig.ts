@@ -1,8 +1,8 @@
 import { ChainId } from 'dexpools-sdk'
 
 export const ChainIdToNetwork: Record<number, string> = {
-  137: 'Metis',
-  1088: 'Stardust Metis',
+  588: 'Stardust Metis',
+  1088: 'Metis',
   42161: 'Arbitrum',
   421611: 'Arbitrum test'
 }

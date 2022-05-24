@@ -1,3 +1,4 @@
+import { ChainId } from 'dexpools-sdk'
 import { providers as ethersProviders } from 'ethers'
 
 import {
@@ -6,8 +7,7 @@ import {
   ExplorerLinkBuilderProps,
   NetworkConfig,
   networkConfigs as _networkConfigs,
-  ChainIdToNetwork,
-  ChainId
+  ChainIdToNetwork
 } from '../config'
 
 export type Pool = {
@@ -45,8 +45,6 @@ export const networkConfigs = Object.keys(_networkConfigs).reduce(
     if (FORK_ENABLED && Number(value) === FORK_BASE_CHAIN_ID) {
       acc[FORK_CHAIN_ID] = {
         ..._networkConfigs[value],
-        // rpcOnly: true,
-        isFork: true,
         privateJsonRPCUrl: FORK_RPC_URL,
         privateJsonRPCWSUrl: FORK_WS_RPC_URL,
         underlyingChainId: FORK_BASE_CHAIN_ID
@@ -82,10 +80,7 @@ export function getNetworkConfig(chainId: ChainId): NetworkConfig {
       name: name || `unknown chainId: ${chainId}`
     } as unknown as NetworkConfig
   }
-  return {
-    ...config,
-    explorerLinkBuilder: linkBuilder({ baseUrl: config.explorerLink })
-  }
+  return config
 }
 
 const providers: { [network: string]: ethersProviders.Provider } = {}

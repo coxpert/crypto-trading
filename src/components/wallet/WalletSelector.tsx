@@ -117,7 +117,7 @@ export const WalletSelector = () => {
       )}
       <WalletRow
         key="browser_wallet"
-        walletName="Browser wallet"
+        walletName="Metamask"
         walletType={WalletType.INJECTED}
       />
       <WalletRow

@@ -151,7 +151,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
       localStorage.removeItem('-wallet-account:address')
       localStorage.removeItem('-wallet-account:private-key')
     }
-  }, [provider, connector])
+  }, [provider, connector, currentAccount])
 
   // connect to the wallet specified by wallet type
   const connectWallet = useCallback(
@@ -159,7 +159,6 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
       setLoading(true)
       try {
         const connector: AbstractConnector = getWallet(wallet, chainId)
-
         if (connector instanceof WalletConnectConnector) {
           connector.walletConnectProvider = undefined
         }
