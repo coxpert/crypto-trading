@@ -5,7 +5,11 @@
     "module": "commonjs",
     "noEmit": true,
     "outDir": "dist",
-    "target": "es2017"
+    "target": "es2017",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./server/*"]
+    }
   },
   "include": ["server/**/*.js", "server/**/*.ts", "server/**/*.tsx"]
 }
