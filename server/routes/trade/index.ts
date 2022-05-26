@@ -6,6 +6,8 @@ import getTokenPairs from './getTokenPairs'
 import getTokenData from './getTokenData'
 import getOrderBooks from './getOrderBooks'
 import deposit from './deposit'
+import withdraw from './withdraw'
+
 import tradeMiddleware from '../../middlewares/trade'
 
 const router = Router()
@@ -19,5 +21,6 @@ router.get('/get-orderbooks', getOrderBooks)
 router.post('/post-order', postOrder)
 router.post('/cancel-order', cancelOrder)
 router.post('/deposit', deposit)
+router.post('/withdraw', withdraw)
 
 export default router

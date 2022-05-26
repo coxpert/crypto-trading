@@ -17,6 +17,10 @@ interface WithdrawBody {
 const withdraw = async (req: Request, res: Response): Promise<void> => {
   const { account, chainId, symbol, amount } = req.body as WithdrawBody
 
+  if (!chainId || !symbol || !amount) {
+    throw 'Invalid arguments'
+  }
+
   const portfolioAddress = PORTFOLIO_ADDRESS[chainId]
 
   // get available toke list from the order book api which are from firebase
