@@ -9,7 +9,7 @@ const DepositWithdrawCard = () => {
       <Tabs>
         <TabItem title="Deposit">
           <Box sx={{ mt: 5 }}>
-            <TokenAmount />
+            {/* <TokenAmount /> */}
           </Box>
           <Box sx={{ mt: 10 }} display="flex" justifyContent="center">
             <Button variant="primary">
@@ -19,7 +19,7 @@ const DepositWithdrawCard = () => {
         </TabItem>
         <TabItem title="Withdraw">
           <Box sx={{ mt: 5 }}>
-            <TokenAmount />
+            {/* <TokenAmount /> */}
           </Box>
           <Box sx={{ mt: 10 }} display="flex" justifyContent="center">
             <Button variant="primary">

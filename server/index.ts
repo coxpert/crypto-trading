@@ -13,9 +13,9 @@ app.prepare().then(() => {
   server.use(bodyParser.json())
   server.use(router)
 
-  // server.all('*', (req: IncomingMessage, res: ServerResponse) => {
-  //   return handle(req, res)
-  // })
+  server.all('*', (req: IncomingMessage, res: ServerResponse) => {
+    return handle(req, res)
+  })
 
   server.listen(3000, () => {
     console.log('> Ready on http://localhost:3000')

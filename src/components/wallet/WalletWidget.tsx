@@ -187,38 +187,6 @@ const WalletWidget = () => {
         </ListItemIcon>
         <ListItemText>Copy address</ListItemText>
       </Box>
-
-      {networkConfig?.explorerLinkBuilder && (
-        <Link
-          href={networkConfig.explorerLinkBuilder({ address: currentAccount })}
-          passHref
-        >
-          <a target="_blank">
-            <Box
-              component={component}
-              sx={{ color: { xs: '#F1F1F3', md: 'text.primary' } }}
-              onClick={handleClose}
-            >
-              <ListItemIcon
-                sx={{
-                  color: {
-                    xs: '#F1F1F3',
-                    md: 'primary.light',
-                    minWidth: 'unset',
-                    marginRight: 12
-                  }
-                }}
-              >
-                <SvgIcon fontSize="small">
-                  <ExternalLinkIcon />
-                </SvgIcon>
-              </ListItemIcon>
-              <ListItemText>View on Explorer</ListItemText>
-            </Box>
-          </a>
-        </Link>
-      )}
-
       <Box
         component={component}
         sx={{ color: { xs: '#F1F1F3', md: 'text.primary' } }}

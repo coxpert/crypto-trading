@@ -22,6 +22,7 @@ export const PairSelector = ({ pair, onChange }: PairSelectorProps) => {
     if (!pair) {
       onChange(tokenPairList[0])
     }
+    // eslint-disable-next-line
   }, [tokenPairList])
 
   const handleChange = (e: SelectChangeEvent<string>) => {

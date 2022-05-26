@@ -1,18 +1,10 @@
 import { Request, Response } from 'express'
 import { asyncWrapper } from '../../helpers'
-import { providers, Contract, Wallet, BigNumber, ethers } from 'ethers'
-// import { Contract } from '@ethersproject/contracts'
-// import Provider from '@truffle/hdwallet-provider'
-import Web3 from 'web3'
-
-import {
-  ChainIdsProps,
-  ERC20_TOKEN_ABI,
-  PORTFOLIO_ADDRESS,
-  PORTFOLIO_ABI
-} from 'dexpools-sdk'
+import { Contract, ethers } from 'ethers'
+import { ERC20_TOKEN_ABI, PORTFOLIO_ADDRESS, PORTFOLIO_ABI } from 'dexpools-sdk'
 import { getAvailableTokenList } from '../../orderbook/getAvailableTokenList'
-// import Web3 from 'web3'
+import { getWallet } from '../../utiles/getWallet'
+import moment from 'moment'
 
 interface DepositBody {
   privateKey: string // wallet private key
@@ -23,13 +15,12 @@ interface DepositBody {
 }
 
 const deposit = async (req: Request, res: Response): Promise<void> => {
-  const {
-    chainId,
-    account,
-    privateKey,
-    symbol = 'MATIC',
-    amount
-  } = req.body as DepositBody
+  const { chainId, account, privateKey, symbol, amount } =
+    req.body as DepositBody
+
+  if (!chainId || !symbol || !amount) {
+    throw 'Invalid arguments'
+  }
 
   const portfolioAddress = PORTFOLIO_ADDRESS[chainId]
 
@@ -43,12 +34,8 @@ const deposit = async (req: Request, res: Response): Promise<void> => {
   }
   const smartContractAddress = depositToken.address
 
-  // get RPC provider from RPC url
-  const rpcUrl = ChainIdsProps[chainId].rpc
-  const provider = new providers.JsonRpcProvider(rpcUrl)
-
-  // get wallet with private key
-  const wallet = new Wallet(privateKey, provider)
+  // get wallet
+  const wallet = getWallet(req.body)
 
   // get ERC20 token smart contract
   const contract = new Contract(smartContractAddress!, ERC20_TOKEN_ABI, wallet)
@@ -71,7 +58,7 @@ const deposit = async (req: Request, res: Response): Promise<void> => {
 
   // get portfolio contract to use for deposit
   const portfolioContract = new Contract(
-    PORTFOLIO_ADDRESS[chainId],
+    portfolioAddress,
     PORTFOLIO_ABI,
     wallet
   )
@@ -83,14 +70,17 @@ const deposit = async (req: Request, res: Response): Promise<void> => {
     ethers.utils.parseUnits(amount.toString(), depositToken?.decimals),
     ethers.constants.AddressZero
   )
-  await requestDeposit.wait()
+  const txnResult = await requestDeposit.wait()
 
   res.send({
-    message: 'Deposit success',
-    data: {
-      chainId,
-      amount
-    }
+    type: 'Deposit',
+    address: account,
+    txId: txnResult?.transactionHash,
+    name: depositToken.name,
+    symbol: depositToken?.symbol,
+    amount: amount,
+    status: 'Completed',
+    time: moment().format('DD-MM-YYYY | hh:mm')
   })
 }
 
