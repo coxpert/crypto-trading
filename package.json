@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "build": "next build",
-    "start": "TS_NODE_PROJECT=tsconfig.server.json node --inspect=5858 -r ts-node/register server/index.ts",
+    "start": "next start",
     "lint": "next lint",
     "lint-fix": "next lint --fix",
     "prettier": "prettier --check .",
