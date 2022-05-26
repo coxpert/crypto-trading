@@ -6,9 +6,9 @@ import { asyncWrapper } from '../../helpers'
 
 const getLatestPrice = async (req: Request, res: Response): Promise<void> => {
   const { chainId, tokenPair, orderType, decimals } = req.body
-  const orderbooks_url = process.env.LISTENER_URL + '/dex/orderbooks/' + chainId
+  const url = process.env.LISTENER_URL + '/dex/orderbooks/' + chainId
 
-  const result = await axios.get(orderbooks_url)
+  const result = await axios.get(url)
 
   if (result.status == 200) {
     const tokenA = tokenPair.split('/')[0]
