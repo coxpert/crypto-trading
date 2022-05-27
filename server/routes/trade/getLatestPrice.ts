@@ -4,8 +4,16 @@ import ethers, { BigNumberish } from 'ethers'
 import dexpoolsSDK from 'dexpools-sdk'
 import { asyncWrapper } from '../../helpers'
 
+interface GetLatestPriceBody {
+  chainId: number
+  tokenPair: string
+  orderType: 'buy' | 'sell'
+  decimals: string
+}
+
 const getLatestPrice = async (req: Request, res: Response): Promise<void> => {
-  const { chainId, tokenPair, orderType, decimals } = req.body
+  const { chainId, tokenPair, orderType, decimals } =
+    req.body as GetLatestPriceBody
   const url = process.env.LISTENER_URL + '/dex/orderbooks/' + chainId
 
   const result = await axios.get(url)

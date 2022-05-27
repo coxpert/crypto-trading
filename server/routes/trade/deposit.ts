@@ -15,8 +15,7 @@ interface DepositBody {
 }
 
 const deposit = async (req: Request, res: Response): Promise<void> => {
-  const { chainId, account, privateKey, symbol, amount } =
-    req.body as DepositBody
+  const { chainId, account, symbol, amount } = req.body as DepositBody
 
   if (!chainId || !symbol || !amount) {
     throw 'Invalid arguments'

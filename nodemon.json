@@ -1,5 +1,5 @@
 {
   "watch": ["server", ".env.local", "next.config.js"],
-  "exec": "yarn cross-env TS_NODE_PROJECT=tsconfig.server.json node --inspect=5858 -r ts-node/register server/index.ts",
+  "exec": "yarn cross-env TS_NODE_PROJECT=tsconfig.server.json node --inspect=5858 -r ts-node/register server/next.ts",
   "ext": "js ts"
 }

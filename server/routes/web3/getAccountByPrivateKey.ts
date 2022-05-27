@@ -1,9 +1,6 @@
 import { Request, Response } from 'express'
 import { asyncWrapper } from '../../helpers'
 import Web3 from 'web3'
-interface RequestBody {
-  privateKey: string
-}
 
 const getAccountByPrivateKey = async (
   req: Request,

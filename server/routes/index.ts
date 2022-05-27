@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import boom from 'express-boom'
+import getAvailableTokenList from './getAvailableTokenList'
 
 import trade from './trade'
 import web3 from './web3'
@@ -15,5 +16,6 @@ router.get('/version', (_req, res) =>
 
 router.use('/trade', trade)
 router.use('/dex', web3)
+router.get('/available-token-list', getAvailableTokenList)
 
 export default router

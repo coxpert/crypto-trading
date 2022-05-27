@@ -5,11 +5,18 @@
     "module": "commonjs",
     "noEmit": true,
     "outDir": "dist",
-    "target": "es2017",
+    "target": "es2019",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": false,
+    "inlineSourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./server/*"]
+      "@/*": ["server/*"]
     }
   },
-  "include": ["server/**/*.js", "server/**/*.ts", "server/**/*.tsx"]
+  "include": ["server/**/*.js", "server/**/*.ts", "server/**/*.tsx"],
+  "exclude": ["node_modules"]
 }
