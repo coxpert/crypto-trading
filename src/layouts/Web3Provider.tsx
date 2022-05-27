@@ -102,6 +102,8 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({
         getOrderBooks(_chainId)
       ])
 
+      console.log(tokenPairs)
+
       if (tokenPairs && tokenData && orderBooks) {
         const _pairList: TokenPairList[] = tokenPairs.map((item) => {
           const tokenA = item.symbol.split('/')[0]
